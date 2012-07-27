@@ -2,13 +2,33 @@
 <html>
 <head>
   <title>Oladium</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag 'application', media: 'screen, projection, print' %>
+  <!--[if lt IE 8]>
+    <%= stylesheet_link_tag 'application-ie', media: 'screen, projection' %>
+  <![endif]-->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
+<div class="container">
+  <table>
+    <tr>
+      <td>
+        // sdfsdfds
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <%= yield %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+         © 2012
+      </td>
+    </tr>
+  </table>
+</div>
 
 </body>
 </html>
