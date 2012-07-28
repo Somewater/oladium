@@ -55,5 +55,23 @@ module Oladium
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # Monit support  
+    if defined?(PhusionPassenger)
+     require 'pidfile_manager'
+     PhusionPassenger.on_event(:starting_worker_process) do |forked|
+      if forked
+        # We're in smart spawning mode.
+        PidfileManager.write_pid_file
+      else
+        # We're in conservative spawning mode. We don't need to do anything.
+      end
+     end
+
+     PhusionPassenger.on_event(:stopping_worker_process) do
+      PidfileManager.remove_pid_file
+     end
+    end
+
   end
 end
