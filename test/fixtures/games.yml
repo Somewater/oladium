@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  net: MyString
+  net_id: MyString
+  type: 
+  name: MyString
+  title: MyString
+  description: MyText
+  driving: MyString
+  priority: 1
+  body: MyText
+  width: 
+  height: 
+
+two:
+  net: MyString
+  net_id: MyString
+  type: 
+  name: MyString
+  title: MyString
+  description: MyText
+  driving: MyString
+  priority: 1
+  body: MyText
+  width: 
+  height: 

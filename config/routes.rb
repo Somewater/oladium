@@ -2,6 +2,12 @@ Oladium::Application.routes.draw do
 
   root :to => 'main_page#index'
 
+  scope "(:locale)", :locale => /ru|en/ do
+    resources :games, :only => [:show, :index]
+  end
+
+  match '*paths' => 'main_page#not_found'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -37,3 +37,12 @@ gem 'jquery-rails'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+#gem 'rspec', '2.9.0'
+#gem 'rspec-rails', '2.9.0'
+#gem 'rails_admin', :git => 'git@github.com:sferik/rails_admin'
+#gem "devise", "2.0.4"
+#gem "ckeditor", "3.7.0.rc3"
+#gem "paperclip", "3.0.1"
+#gem 'globalize3', "0.2.0"
+#gem 'dynamic_sitemaps', "1.0.5"
