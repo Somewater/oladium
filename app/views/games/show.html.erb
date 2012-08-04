@@ -1,4 +1,6 @@
 <h1><%= @game.title %></h1>
 <div id="game">
+  <embed src="<%= @game.body %>" menu="false" quality="high" width="<%= @game.width %>" height="<%= @game.height %>"
+         type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
   <%= @game.body.html_safe %>
 </div>

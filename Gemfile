@@ -38,6 +38,7 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
+gem 'httparty', '0.8.1'
 #gem 'rspec', '2.9.0'
 #gem 'rspec-rails', '2.9.0'
 #gem 'rails_admin', :git => 'git@github.com:sferik/rails_admin'

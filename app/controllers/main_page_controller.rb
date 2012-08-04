@@ -1,6 +1,8 @@
 class MainPageController < ApplicationController
   def index
-    @games = Game.all
+    a = Aggregator.mochi
+    a.load
+    @games = a.games.map{|g| g.to_game}
   end
 
   def not_found
