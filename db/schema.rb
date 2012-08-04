@@ -11,11 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731193855) do
+ActiveRecord::Schema.define(:version => 20120804114810) do
+
+  create_table "categories", :force => true do |t|
+    t.string "name",  :null => false
+    t.string "title"
+  end
 
   create_table "games", :force => true do |t|
-    t.string   "net",                        :null => false
-    t.string   "net_id",                     :null => false
+    t.string   "net",                           :null => false
+    t.string   "net_id",                        :null => false
     t.string   "type"
     t.string   "slug"
     t.string   "title"
@@ -27,8 +32,10 @@ ActiveRecord::Schema.define(:version => 20120731193855) do
     t.integer  "height",      :default => 0
     t.string   "image"
     t.string   "tags"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "enabled",     :default => true
+    t.integer  "category_id",                   :null => false
   end
 
   add_index "games", ["net", "net_id"], :name => "index_games_on_net_and_net_id", :unique => true

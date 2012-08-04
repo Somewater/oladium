@@ -13,7 +13,7 @@ class GamesController < ApplicationController
       match = params[:id].match(/net-(.+)-id-(.+)/)
       net = match[1]
       net_id = match[2]
-      a = Aggregator.mochi
+      a = Aggregator.send(net.to_sym)
       a.load
       @game = a.games.map{|g| g.to_game}.find{|g| g.net == net && g.net_id == net_id}
     end

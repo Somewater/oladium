@@ -13,6 +13,11 @@ module Aggregator
 
     # заполнить геймами
     def load
+      raise 'override me'
+    end
+
+    def from_net_category(name)
+      raise 'override me'
     end
 
     def games
@@ -23,7 +28,7 @@ module Aggregator
 
 
   class Game
-    attr_accessor :net, :net_id, :title, :description, :body, :type, :width, :height, :image, :tags
+    attr_accessor :net, :net_id, :title, :description, :body, :type, :width, :height, :image, :tags, :category
 
     # создать ::Game
     def to_game(*args)
@@ -42,6 +47,7 @@ module Aggregator
       g.height = self.height
       g.image = self.image
       g.tags = self.tags
+      g.category = self.category
       g
     end
   end

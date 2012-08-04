@@ -7,10 +7,40 @@ module Aggregator
 
     default_timeout 5
 
+    @@category_dict = {
+                        'action' => ['Action', 'Adventure', 'Rhythm'],
+                        'puzzle' => ['Puzzles', 'Board Game', 'Casino', 'Education', 'Jigsaw'],
+                        'simulation' => ['Driving', 'Sports'],
+                        'shooter' => ['Fighting', 'Shooting'],
+                        'strategy' => ['Strategy'],
+                        'other' => ['Other', 'Rhythm', 'Dress Up', 'Customize']
+                      }
+
+    @@query_to_net_category = {
+                                'action' => 'Action',
+                                'adventure' => 'Adventure',
+                                'board-game' => 'Board Game',
+                                'casino' => 'Casino',
+                                'driving' => 'Driving',
+                                'dress-up' => 'Dress Up',
+                                'fighting' => 'Fighting',
+                                'puzzles' => 'Puzzles',
+                                'customize' => 'Customize',
+                                'shooting' => 'Shooting',
+                                'sports' => 'Sports',
+                                'other' => 'Other',
+                                'strategy' => 'Strategy',
+                                'education' => 'Education',
+                                'rhythm' => 'Rhythm',
+                                'jigsaw' => 'Jigsaw'
+                              }
+
     def load()
       query = {:format => 'json', :limit => (@limit ? @limit : 20)}
       query[:search] = @search if @search
       query[:tag] = @tag if @tag
+      @category = @@category_dict[@category].first if @category && @@category_dict[@category]
+      @category = @@query_to_net_category.invert[@category] if @category && @@query_to_net_category.invert[@category]
       response = self.class.get("http://www.mochimedia.com/feeds/games/#{CONFIG['mochi']['publicher_id']}/#{(@category ? @category : '')}",
                                 :query => query)
       if((200..299).include? response.code)
@@ -28,9 +58,15 @@ module Aggregator
           g.height = game_data['height']
           g.image = game_data['thumbnail_url']
           g.tags = game_data['tags'].join(',')
+          g.category = self.from_net_category(game_data['category'])
           @games << g
         end
       end
+    end
+
+    def from_net_category(name)
+      name = (@@category_dict.find{|k,v| k if v.include?(name) }) || 'other'
+      Category.find_by_name(name)
     end
   end
 end
