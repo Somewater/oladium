@@ -1,1 +1,9 @@
+<div class="span-24">
+  <button class="get_games">Get games</button>
+</div>
+<script type="text/javascript">
+  $('.get_games').click(function(event){
+    loadGames('mochi');
+  });
+</script>
 <%= render :partial => 'games_index' %>

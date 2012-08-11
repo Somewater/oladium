@@ -2,6 +2,7 @@ module Admin
   class AdminController < ApplicationController
     before_filter :authenticate_user!
     layout 'admin_area'
+    include ApplicationHelper
 
     def index
       @path_by_action = {}
@@ -15,11 +16,54 @@ module Admin
     end
 
     def mochi_games_index
-      @games = ::Aggregator.mochi.load().games.map(&:to_game)
+      #@games = ::Aggregator.mochi.load().games.map(&:to_game)
     end
 
     def games_gateway
+      params[:net] = 'mochi' unless params[:net]
+      if(params[:net] == 'db')
+        @games = Game.all
+      else
+        aggregator = ::Aggregator.send(params[:net].to_sym)
+        aggregator.load()
+        @games = aggregator.games.map &:to_game
+      end
 
+      @games.map! do |game|
+        h = game_to_hash(game)
+        h['new_record'] = !Game.exists?(:net => h[:net], :net_id => h[:net_id])
+        h
+      end
+
+      render :text => @games.to_json
+    end
+
+    def controller_gateway
+      case params[:task]
+        when 'delete'
+          g = Game.find_by_net_and_net_id(params[:net], params[:net_id])
+          raise "Can't find game by net #{params[:net]} net_id #{params[:net_id]}" unless g
+          g.destroy
+          render :text => 'ok'
+        when 'add'
+          game = JSON.parse(params[:game])
+          category = game['category']
+          remove_protected_params(game)
+          g = Game.new()
+          g.category = Category.send(category)
+          g.update_attributes(game)
+          g.save!
+          render :text => game_to_hash(g).to_json
+        else
+          raise "Undefined task"
+      end
+    end
+
+    private
+    def remove_protected_params(params)
+      params.delete('new_record')
+      params.delete('category')
+      params.delete('path')
     end
 
   end

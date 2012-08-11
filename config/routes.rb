@@ -8,7 +8,7 @@ Oladium::Application.routes.draw do
 
     devise_for :users
     namespace 'admin' do
-      match '(:action(/:id))' => 'admin', :defaults => {:action => 'index'}
+      match '(:action(/:task))' => 'admin', :defaults => {:action => 'index'}
     end
 
     resources :games, :only => [:show, :index]

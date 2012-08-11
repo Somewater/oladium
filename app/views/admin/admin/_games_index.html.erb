@@ -1,38 +1,72 @@
 
-<div class="canvas">
+<div class="canvas span-24" id="canvas">
   <ul id="sortable">
-    <% @games.each do |game| %>
-      <li class="ui-state-default" style="position: relative;" id="<%= (game.new_record? ? game.net_id: game.id) %>">
-          <a href="<%= game_path(game) %>"><img src="<%= game.image %>" class="left" width="40" height="40"></img></a>
-          <span class="left"><b><%= game.title %></b><br><%= truncate(game.description, :length => 100) %></span>
-          <div class="panel right">
-            <% if game.new_record? %>
-              <a href="javascript:" class="ss_sprite ss_add"></a>
-            <% else %>
-              <a href="javascript:" class="ss_sprite ss_delete"></a>
-            <% end %>
-          </div>
-          <small></small><div class="status_panel">sdf</div></small>
-      </li>
-    <% end %>
   </ul>
 </div>
 
 <% content_for :script do %>
+  CONTROLLER_GATEWAY = '<%= admin_path(:action => 'controller_gateway') %>';
+  gamesByNetId = {};
   $(function() {
-		$( "#sortable" ).sortable({
+		refreshSortables();
+	});
+  function refreshSortables(){
+    $( "#sortable" ).sortable({
 			revert: true
 		});
-		$( "ul, li" ).disableSelection();
-    $(".panel").click(function(event){
-      var net_id = $(event.currentTarget).parent().attr('id')
-      $.ajax({url:'/hello/', data: {net_id: net_id}, success:function(){$(event.currentTarget).hide();}})
-    });
-	});
+    $( "ul, li" ).disableSelection();
+  }
   function createGameItem(game){
-    result = ''
-    result += ''
+    result = '';
+    result +=
+        '<li class="ui-state-default" style="position: relative;" id="' + (game.net + ':' + game.net_id) + '">' +
+            '<a href="' + game.path + '"><img src="' + game.image + '" class="left" width="40" height="40"></img></a>' +
+            '<span class="left"><b>' + game.title + '</b><br>' + (game.description ? game.description.substr(0, 100) : 0) + '</span>' +
+            '<div class="panel right">';
+    result+='<a href="javascript:" class="ss_sprite ss_add icon"></a>' + '<a href="javascript:" class="ss_sprite ss_delete icon"></a>';
+    result +=
+            '</div>' +
+            '<small></small><div class="status_panel">-</div></small>' +
+        '</li>';
+    result = $(result);
+    $('.ss_add', result).click(function(event){onAddGame(event, game.net, game.net_id)});
+    $('.ss_delete', result).click(function(event){onDeleteGame(event, game.net, game.net_id)});
+    refreshIcon(result, game);
+    gamesByNetId[game.net + ":" + game.net_id] = game;
     return result;
+  }
+  function onDeleteGame(event, net, net_id){
+    icon = $('#' + net + '\\:' + net_id);
+    game = gamesByNetId[net + ":" + net_id];
+    $.ajax({url:CONTROLLER_GATEWAY, data: {net_id: game.net_id, net: game.net, task: 'delete'}, success:function(data){
+      game.new_record = true;
+      refreshIcon(icon, game);
+    }});
+  }
+  function onAddGame(event, net, net_id){
+    icon = $('#' + net + '\\:' + net_id);
+    game = gamesByNetId[net + ":" + net_id];
+    $.ajax({url:CONTROLLER_GATEWAY, data: {game: JSON.stringify(game), task: 'add'}, success:function(data){
+      game = $.parseJSON(data);
+      refreshIcon(icon, game);
+    }});
+  }
+  function refreshIcon(icon, game){
+    $('.ss_add', icon).toggle(game.new_record);
+    $('.ss_delete', icon).toggle(!game.new_record);
+  }
+  function loadGames(net){
+    $('#sortable').empty().append($('<p>Loading...</p>'));
+    $.ajax({url: '<%= admin_path(:action => 'games_gateway') %>', data: {net: net}, success: function(response){
+      var games = $.parseJSON(response);
+      var holder = $('#sortable')
+      holder.empty();
+      $.each(games, function(index, game){
+        var icon = createGameItem(game);
+        holder.append(icon);
+      });
+      refreshSortables();
+    } });
   }
 <% end %>
 
@@ -44,4 +78,5 @@
   .right {float: right; margin-left: 10px;}
   .panel {position: relative; vertical-align: top;}
   .status_panel {position: absolute; bottom: 0; right: 0;}
+  .icon {position: absolute; top: 0; right: 0;}
 <% end %>
