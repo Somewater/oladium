@@ -1,7 +1,7 @@
 <h1>Flash games</h1>
 <div id="games">
   <% @games.each do |game| %>
-    <a href="<%= game_path(game.id ? game.id : "net-#{game.net}-id-#{game.net_id}") %>">
+    <a href="<%= game_path(game) %>">
       <h3><%= game.title %></h3>
       <img src="<%= game.image %>" alt="<%= game.title %>">
     </a>

@@ -1,0 +1,47 @@
+
+<div class="canvas">
+  <ul id="sortable">
+    <% @games.each do |game| %>
+      <li class="ui-state-default" style="position: relative;" id="<%= (game.new_record? ? game.net_id: game.id) %>">
+          <a href="<%= game_path(game) %>"><img src="<%= game.image %>" class="left" width="40" height="40"></img></a>
+          <span class="left"><b><%= game.title %></b><br><%= truncate(game.description, :length => 100) %></span>
+          <div class="panel right">
+            <% if game.new_record? %>
+              <a href="javascript:" class="ss_sprite ss_add"></a>
+            <% else %>
+              <a href="javascript:" class="ss_sprite ss_delete"></a>
+            <% end %>
+          </div>
+          <small></small><div class="status_panel">sdf</div></small>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<% content_for :script do %>
+  $(function() {
+		$( "#sortable" ).sortable({
+			revert: true
+		});
+		$( "ul, li" ).disableSelection();
+    $(".panel").click(function(event){
+      var net_id = $(event.currentTarget).parent().attr('id')
+      $.ajax({url:'/hello/', data: {net_id: net_id}, success:function(){$(event.currentTarget).hide();}})
+    });
+	});
+  function createGameItem(game){
+    result = ''
+    result += ''
+    return result;
+  }
+<% end %>
+
+<% content_for :style do %>
+  .canvas ul li { border: 1px solid #FCEFA1; background: #FFEEFF }
+  .canvas ul { list-style-type: none; }
+	.canvas li { margin: 5px; padding: 5px; width: 90%; min-height: 50px; vertical-align: top;}
+  .left {float: left; margin-right: 10px;}
+  .right {float: right; margin-left: 10px;}
+  .panel {position: relative; vertical-align: top;}
+  .status_panel {position: absolute; bottom: 0; right: 0;}
+<% end %>

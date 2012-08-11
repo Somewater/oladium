@@ -3,6 +3,7 @@
 <head>
   <title>Oladium</title>
   <%= stylesheet_link_tag 'application', media: 'screen, projection, print' %>
+  <%= stylesheet_link_tag 'application-admin', media: 'screen, projection, print' %>
   <!--[if lt IE 8]>
     <%= stylesheet_link_tag 'application-ie', media: 'screen, projection' %>
   <![endif]-->
@@ -21,9 +22,16 @@
     <% unless notice.blank? %><p class="notice"><%= notice %></p><% end %>
     <% unless alert.blank? %><p class="alert"><%= alert %></p><% end %>
   </div>
-  <div class="span-24">
-    <%= yield %>
-  </div>
+    <div class="span-12 last">
+      <a href="<%= admin_path %>"><h2>Admin area</h2></a>
+    </div>
+    <div class="span-12 last">
+      <span>Logging as <%= current_user.email %></span>
+      <span><a href="<%= destroy_user_session_path() %>">Logout</a></span>
+    </div>
+    <div class="span-24">
+      <%= yield %>
+    </div>
   <div class="span-24">
     © 2012
   </div>

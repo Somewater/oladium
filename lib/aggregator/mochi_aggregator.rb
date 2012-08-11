@@ -62,6 +62,8 @@ module Aggregator
           @games << g
         end
       end
+
+      self
     end
 
     def from_net_category(name)

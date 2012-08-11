@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120804114810) do
+ActiveRecord::Schema.define(:version => 20120810203151) do
 
   create_table "categories", :force => true do |t|
     t.string "name",  :null => false
@@ -39,5 +39,15 @@ ActiveRecord::Schema.define(:version => 20120804114810) do
   end
 
   add_index "games", ["net", "net_id"], :name => "index_games_on_net_and_net_id", :unique => true
+
+  create_table "users", :force => true do |t|
+    t.string   "email",               :default => "", :null => false
+    t.string   "encrypted_password",  :default => "", :null => false
+    t.datetime "remember_created_at"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
 end

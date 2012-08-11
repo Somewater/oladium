@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
 
+  protected
 	def set_locale
 		@locale = params[:locale]
 		@locale = cookies[:locale] unless @locale

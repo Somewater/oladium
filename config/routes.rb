@@ -1,8 +1,16 @@
 Oladium::Application.routes.draw do
 
+
+
   root :to => 'main_page#index'
 
   scope "(:locale)", :locale => /ru|en/ do
+
+    devise_for :users
+    namespace 'admin' do
+      match '(:action(/:id))' => 'admin', :defaults => {:action => 'index'}
+    end
+
     resources :games, :only => [:show, :index]
   end
 
