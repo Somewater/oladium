@@ -12,6 +12,7 @@ Oladium::Application.routes.draw do
     end
 
     resources :games, :only => [:show, :index]
+    resources :category, :only => :show
   end
 
   match '*paths' => 'main_page#not_found'

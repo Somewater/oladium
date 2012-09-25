@@ -1,0 +1,13 @@
+#games{
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+.game-item{
+  height: 120px;
+}
+.game-image{
+  float: left;
+  margin-right: 15px;
+}
+.game-desc{
+}

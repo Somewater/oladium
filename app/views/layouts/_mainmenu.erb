@@ -1,0 +1,12 @@
+<div id="mainmenu" class="span-24">
+  <% Category.all.each_with_index do |category, index| %>
+  <div class="span-4<%= index == Category.all.size - 1 ? ' last' : '' %>">
+    <div>
+      <a href="<%= category_path(category) %>">
+        <img src="" width="30" height="30" alt="<%= category.title %>"/>
+        <%= category.title %>
+      </a>
+    </div>
+  </div>
+  <% end %>
+</div>

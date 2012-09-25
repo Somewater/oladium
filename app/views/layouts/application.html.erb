@@ -8,38 +8,69 @@
   <![endif]-->
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+<% if content_for?(:style) %>
   <style>
     <%= yield :style %>
 	</style>
+<% end %>
+<% if content_for?(:script) %>
   <script type="text/javascript">
     <%= yield :script %>
   </script>
-  <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-34242765-1']);
-    _gaq.push(['_setDomainName', 'oladium.com']);
-    _gaq.push(['_setAllowLinker', true]);
-    _gaq.push(['_trackPageview']);
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-  </script>
+<% end %>
 </head>
 <body>
-<!-- Yandex.Metrika counter --><script type="text/javascript">(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter17160772 = new Ya.Metrika({id:17160772, enableAll: true, trackHash:true, webvisor:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/17160772" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+<header>
+  <div class="container">
+    <div class="span-24">
+      <div class="left header-logo">
+        FLASH GAMES
+      </div>
+      <div class="right header-search">
+        SEARCH
+      </div>
+    </div>
+    <div class="span-24">
+      <div class="header-menu">
+        <a href="/">Home</a>
+      </div>
+      <div class="header-menu">
+        <a href="/">Categories</a>
+      </div>
+      <div class="header-menu">
+        <a href="/">About</a>
+      </div>
+    </div>
+  </div>
+</header>
+<hr class="wide-hr"/>
 <div class="container">
   <div class="span-24">
     <% unless notice.blank? %><p class="notice"><%= notice %></p><% end %>
     <% unless alert.blank? %><p class="alert"><%= alert %></p><% end %>
   </div>
+  <%= render :partial => 'layouts/mainmenu' %>
   <div class="span-24">
     <%= yield %>
   </div>
-  <div class="span-24">
-    © 2012
-  </div>
 </div>
+<footer>
+  <div class="container">
+    <div class="span-24">
+      <div class="span-7 colborder">
+        LEFT
+      </div>
+      <div class="span-7 colborder">
+        CENTER
+      </div>
+      <div class="span-8 last">
+        RIGHT
+      </div>
+    </div>
+    <div class="span-24">
+      © 2012
+    </div>
+  </div>
+</footer>
 </body>
 </html>
