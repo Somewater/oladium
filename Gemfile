@@ -6,7 +6,6 @@ gem 'rails', '3.2.3'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
-gem 'thin'
 
 
 # Gems used only for assets and not required
@@ -21,7 +20,11 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+gem 'rails_admin', "0.3.0"
+gem "ckeditor"
+gem "paperclip"
+gem 'dynamic_sitemaps', "1.0.5"
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

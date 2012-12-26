@@ -2,6 +2,10 @@ Oladium::Application.routes.draw do
 
 
 
+  
+
+  mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
+
   root :to => 'main_page#index'
 
   scope "(:locale)", :locale => /ru|en/ do
