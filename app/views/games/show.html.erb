@@ -1,6 +1,28 @@
-<h1><%= @game.title %></h1>
-<div id="game">
-  <embed src="<%= @game.body %>" menu="false" quality="high" width="<%= @game.width %>" height="<%= @game.height %>"
-         type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-  <%= @game.body.html_safe %>
+<div class="row pagination-centered">
+    <h3><%= @game.title %></h3>
+    <div id="game">
+      <embed src="<%= @game.body %>" menu="false" quality="high" width="<%= @game.width %>" height="<%= @game.height %>"
+             type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+    </div>
+
+    <% @game.tags.to_s.split(',').each do |tag| %>
+        <a href="<%= tags_path(tag.gsub('+', '++').gsub(/\s+/, '+')) %>"><span class="label label-info"><%= tag %></span></a>
+    <% end %>
+
+    <hr/>
+
+    <div style="text-align: left">
+        <% unless @game.description.blank? %>
+            <div class="description">
+                <%= @game.description.html_safe %>
+            </div>
+        <% end %>
+        <% unless @game.driving.blank? %>
+            <div class="driving">
+                <%= @game.driving.html_safe %>
+            </div>
+        <% end %>
+    </div>
+
+    <hr/>
 </div>

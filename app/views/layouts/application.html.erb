@@ -1,76 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Oladium</title>
-  <%= stylesheet_link_tag 'application', media: 'screen, projection, print' %>
-  <!--[if lt IE 8]>
-    <%= stylesheet_link_tag 'application-ie', media: 'screen, projection' %>
-  <![endif]-->
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-<% if content_for?(:style) %>
-  <style>
-    <%= yield :style %>
-	</style>
-<% end %>
-<% if content_for?(:script) %>
-  <script type="text/javascript">
-    <%= yield :script %>
-  </script>
-<% end %>
+    <title>Oladium</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <% if content_for?(:style) %>
+        <style>
+            <%= yield :style %>
+        </style>
+    <% end %>
+    <% if content_for?(:script) %>
+        <script type="text/javascript">
+            <%= yield :script %>
+        </script>
+    <% end %>
 </head>
 <body>
 <header>
-  <div class="container">
-    <div class="span-24">
-      <div class="left header-logo">
-        FLASH GAMES
-      </div>
-      <div class="right header-search">
-        SEARCH
-      </div>
-    </div>
-    <div class="span-24">
-      <div class="header-menu">
-        <a href="/">Home</a>
-      </div>
-      <div class="header-menu">
-        <a href="/">Categories</a>
-      </div>
-      <div class="header-menu">
-        <a href="/">About</a>
-      </div>
-    </div>
-  </div>
+    <%= render :partial => 'layouts/mainmenu' %>
 </header>
-<hr class="wide-hr"/>
 <div class="container">
-  <div class="span-24">
-    <% unless notice.blank? %><p class="notice"><%= notice %></p><% end %>
-    <% unless alert.blank? %><p class="alert"><%= alert %></p><% end %>
-  </div>
-  <%= render :partial => 'layouts/mainmenu' %>
-  <div class="span-24">
-    <%= yield %>
-  </div>
+    <div class="row">
+        <% unless notice.blank? %>
+            <div class="alert alert-success">
+                <a class="close" data-dismiss="alert">?</a>
+                <span><%= notice %></span>
+            </div>
+        <% end %>
+
+        <% unless alert.blank? %>
+            <div class="alert alert-danger">
+                <a class="close" data-dismiss="alert">?</a>
+                <span><%= alert %></span>
+            </div>
+        <% end %>
+    </div>
+
+    <div id="page" class="container">
+        <%= yield %>
+    </div>
 </div>
-<footer>
-  <div class="container">
-    <div class="span-24">
-      <div class="span-7 colborder">
-        LEFT
-      </div>
-      <div class="span-7 colborder">
-        CENTER
-      </div>
-      <div class="span-8 last">
-        RIGHT
-      </div>
-    </div>
-    <div class="span-24">
-      © 2012
-    </div>
-  </div>
-</footer>
+<div class="well pagination-centered">
+    <p class="muted">© 2012 Oladium</p>
+</div>
 </body>
 </html>

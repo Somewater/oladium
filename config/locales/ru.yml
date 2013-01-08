@@ -1,5 +1,15 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
-en:
+ru:
   hello: "Hello world"
+  search:
+    button: Поиск
+    site_search: Поиск по сайту
+    hint: "поиск..."
+    empty_request: Слишком короткий запрос, введите слово, длиной не менее 3 символов
+    more_word_request: Слишком длинный запрос, ограничьте поисковую фразу 2-3 словами
+    empty_result: Ничего не найдено. Попробуйте изменить параметры поиска
+    huge_result: Запросу удовлетворяет большая часть материалов сайта, попробуйте сузить параметры поиска
+  categories:
+    not_found: Запрошенная категория не найдена
+  games:
+    not_found: Запрошенная игра не найдена
+    empty_set: Не найдено игр в данной категории

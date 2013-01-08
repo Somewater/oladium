@@ -1,12 +1,32 @@
-<div id="mainmenu" class="span-24">
-  <% Category.all.each_with_index do |category, index| %>
-  <div class="span-4<%= index == Category.all.size - 1 ? ' last' : '' %>">
-    <div>
-      <a href="<%= category_path(category) %>">
-        <img src="" width="30" height="30" alt="<%= category.title %>"/>
-        <%= category.title %>
-      </a>
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="/">Oladium</a>
+            <div class="navbar-content">
+                <ul class="nav">
+                    <% Category.all.each_with_index do |category, index|
+                        selected = @category && @category == category
+                        selected = @game.category == category if !selected && @game
+                        %>
+                        <li <%= if selected then 'class="active"'.html_safe else '' end %>>
+                            <a href="<%= category_path(category) %>">
+                                <!--img src="" width="30" height="30" alt="<%= category.title %>"/-->
+                                <%= category.title %>
+                            </a>
+                        </li>
+                    <% end %>
+                </ul>
+            </div>
+            <form action="/search" class="navbar-search pull-right">
+                <input name="words" type="text" placeholder="<%= I18n.t('search.site_search') %>" class="search-query span2">
+            </form>
+        </div>
     </div>
-  </div>
-  <% end %>
+
+    <% if @game %>
+        <ul class="breadcrumb">
+            <li><a href="<%= category_path(@game.category) %>"><%= @game.category.title %></a> <span class="divider">/</span></li>
+            <li class="active"><%= @game.title %></li>
+        </ul>
+    <% end %>
 </div>

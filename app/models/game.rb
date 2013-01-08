@@ -13,4 +13,10 @@ class Game < ActiveRecord::Base
   def category
     super || Category.default
   end
+
+  def to_param
+    n = self.slug
+    n = super unless n && n.size > 0
+    n
+  end
 end

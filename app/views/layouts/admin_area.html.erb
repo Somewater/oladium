@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Oladium</title>
-  <%= stylesheet_link_tag 'application', media: 'screen, projection, print' %>
-  <%= stylesheet_link_tag 'application-admin', media: 'screen, projection, print' %>
-  <!--[if lt IE 8]>
-    <%= stylesheet_link_tag 'application-ie', media: 'screen, projection' %>
-  <![endif]-->
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  <style>
-    <%= yield :style %>
-	</style>
-  <script type="text/javascript">
-    <%= yield :script %>
-  </script>
+    <title>Oladium</title>
+    <%= stylesheet_link_tag 'application', media: 'screen, projection, print' %>
+    <%= stylesheet_link_tag 'application-admin', media: 'screen, projection, print' %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <% if content_for?(:style) %>
+        <style>
+            <%= yield :style %>
+        </style>
+    <% end %>
+    <% if content_for?(:script) %>
+        <script type="text/javascript">
+            <%= yield :script %>
+        </script>
+    <% end %>
 </head>
 <body>
 <div class="container">

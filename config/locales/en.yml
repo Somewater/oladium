@@ -1,5 +1,15 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
   hello: "Hello world"
+  search:
+    button: Search
+    site_search: Search
+    hint: "search..."
+    empty_request: Too short an inquiry, please enter the word length of at least 3 characters
+    more_word_request: Too long a request, limit the search phrase 2-3 words
+    empty_result: Nothing was found. Try changing your search phrase
+    huge_result: Request satisfies most of the materials from the site, try to narrow down your search
+  categories:
+    not_found: Category not found
+  games:
+    not_found: Game not found
+    empty_set: Selected category is empty

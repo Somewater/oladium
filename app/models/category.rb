@@ -12,4 +12,10 @@ class Category < ActiveRecord::Base
   def self.other;      Category.find_by_name('other');       end
 
   def self.default;    self.other                            end
+
+  def to_param
+    n = self.name
+    n = super unless n && n.size > 0
+    n
+  end
 end
