@@ -24,29 +24,5 @@ gem 'rails_admin', "0.3.0"
 gem "ckeditor"
 gem "paperclip"
 gem 'dynamic_sitemaps', "1.0.5"
-
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
-
 gem 'httparty', '0.8.1'
-#gem 'rspec', '2.9.0'
-#gem 'rspec-rails', '2.9.0'
-#gem 'rails_admin', :git => 'git@github.com:sferik/rails_admin'
 gem "devise", "2.1"
-#gem "ckeditor", "3.7.0.rc3"
-#gem "paperclip", "3.0.1"
-#gem 'globalize3', "0.2.0"
-#gem 'dynamic_sitemaps', "1.0.5"
