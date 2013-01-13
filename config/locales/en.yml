@@ -1,11 +1,11 @@
 en:
-  hello: "Hello world"
+  hello: Free online games
   search:
     button: Search
     site_search: Search
-    hint: "search..."
+    hint: search...
     empty_request: Too short an inquiry, please enter the word length of at least 3 characters
-    more_word_request: Too long a request, limit the search phrase 2-3 words
+    more_word_request: Too long a request, limit the search phrase 3-5 words
     empty_result: Nothing was found. Try changing your search phrase
     huge_result: Request satisfies most of the materials from the site, try to narrow down your search
   categories:

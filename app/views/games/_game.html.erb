@@ -1,0 +1,23 @@
+<li class="span4">
+    <div class="thumbnail" style="height: 200px; position: relative">
+        <div style="height: 100%">
+            <div style="float: left; height: 100%; margin-right: 10px; margin-bottom: 30px; text-align: center;">
+                <a href="<%= game_path(game) %>" class="thumbnail">
+                    <img src="<%= game.image %>" alt="<%= game.title %>">
+                </a>
+                <div class="stars" id="stars-<%= game.id %>" style="margin-left: 10px; margin-right: 10px;" score="<%= game.stars %>"></div>
+            </div>
+            <div style="font-size: 12px; overflow: hidden; height: 100%">
+                <a href="<%= game_path(game) %>"><h5><%= game.title %></h5></a>
+                <div><%= truncate(game.description, :length => 200) %></div>
+            </div>
+        </div>
+        <div style="background-color: #EEEEEE; width: 100%; bottom: 0px; left: 0px; right: 0px; position: absolute; max-height: 65px; overflow: hidden;">
+            <div style="padding: 4px; text-align: center;">
+                <% game.each_tag(10) do |tag, html_name| %>
+                    <a href="<%= tags_path(html_name) %>"><span class="label label-info"><%= truncate(tag, :length => 15) %></span></a>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</li>

@@ -24,25 +24,25 @@
     <%= render :partial => 'layouts/mainmenu' %>
 </header>
 <div class="container">
-    <div class="row">
-        <% unless notice.blank? %>
-            <div class="alert alert-success">
-                <a class="close" data-dismiss="alert">?</a>
-                <span><%= notice %></span>
-            </div>
-        <% end %>
+    <% unless notice.blank? && alert.blank? %>
+        <div class="row" style="margin-left: 0px;">
+            <% unless notice.blank? %>
+                <div class="alert alert-success">
+                    <a class="close" data-dismiss="alert">?</a>
+                    <span><%= notice %></span>
+                </div>
+            <% end %>
 
-        <% unless alert.blank? %>
-            <div class="alert alert-danger">
-                <a class="close" data-dismiss="alert">?</a>
-                <span><%= alert %></span>
-            </div>
-        <% end %>
-    </div>
+            <% unless alert.blank? %>
+                <div class="alert alert-danger">
+                    <a class="close" data-dismiss="alert">?</a>
+                    <span><%= alert %></span>
+                </div>
+            <% end %>
+        </div>
+    <% end %>
 
-    <div id="page" class="container">
-        <%= yield %>
-    </div>
+    <%= yield %>
 </div>
 <div class="well pagination-centered">
     <p class="muted">© 2012 Oladium</p>

@@ -47,23 +47,25 @@ class SearchController < ApplicationController
 
   def search_words
     @query = params['words'] || params['wordsline']
+    @page = [params['page'].to_i - 1, 0].max
     @query = @query.to_s.strip
     @words = @query.split.select{|w| w.size > 2}.map(&:strip)
     @results = []
     if !@query || @query.size < 3 && @words.size == 0
       flash.now[:alert] = I18n.t('search.empty_request')
-    elsif @words.size > 3
+    elsif @words.size > 5
       flash.now[:alert] = I18n.t('search.more_word_request')
     else
       # array of SearchResult
       @results = []
+      @games = []
       #Product::Translation.where(['CONCAT(description,title) LIKE ("%?%")', word])
 
       translations = []
       translated_fields = ['title','description','tags']
       model_class = Game
       @words.each do |word|
-        result = model_class.where(["CONCAT(#{translated_fields.map{|m| "IFNULL(#{m},'')" }.join(',')}) LIKE (?)", '%' + word.to_s + '%'])
+        result = model_class.where(["CONCAT(#{translated_fields.map{|m| "IFNULL(#{m},'')" }.join(',')}) LIKE (?)", '%' + word.to_s + '%']).limit(50)
         translations << result.to_a if result && result.size > 0
       end
 
@@ -77,7 +79,8 @@ class SearchController < ApplicationController
       else
         # всё хорошо
         translations_uniq.slice(0,20).each do |translation|
-          @results << SearchResult.new(translation, self)
+          #@results << SearchResult.new(translation, self)
+          @games << translation
         end
       end
     end

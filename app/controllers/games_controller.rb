@@ -1,6 +1,11 @@
 class GamesController < ApplicationController
+
+  GAMES_PER_PAGE = 12
+
   def index
-    @games = Game.all
+    @page = [params[:page].to_i - 1, 0].max if params[:page]
+    @games = Game.order('priority DESC', 'created_at DESC')
+    @primary_games = @games.take(2)
     render :template => 'games/index'
   end
 
@@ -23,5 +28,8 @@ class GamesController < ApplicationController
       render 'main_page/not_found'
       return
     end
+
+    @game.usage += 1
+    @game.save unless @game.new_record?
   end
 end

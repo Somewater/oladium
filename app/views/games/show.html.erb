@@ -5,8 +5,8 @@
              type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
     </div>
 
-    <% @game.tags.to_s.split(',').each do |tag| %>
-        <a href="<%= tags_path(tag.gsub('+', '++').gsub(/\s+/, '+')) %>"><span class="label label-info"><%= tag %></span></a>
+    <% @game.each_tag do |tag, html_name| %>
+        <a href="<%= tags_path(html_name) %>"><span class="label label-info"><%= tag %></span></a>
     <% end %>
 
     <hr/>

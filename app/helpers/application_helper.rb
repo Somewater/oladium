@@ -3,6 +3,10 @@ module ApplicationHelper
     super(game.id ? game.id : "net-#{game.net}-id-#{game.net_id}")
   end
 
+  def url_for_params(params)
+    url_for(self.params.merge(params))
+  end
+
   private
   def game_to_hash(game)
     h = { :net => game.net, :net_id => game.net_id, :title => game.title, :description => game.description,

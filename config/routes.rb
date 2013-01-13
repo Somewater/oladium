@@ -12,6 +12,7 @@ Oladium::Application.routes.draw do
   resources :games, :only => [:show, :index]
   resources :category, :only => :show
   match 'tags/:tag' => 'category#tags', :as => 'tags'
+  match 'ajax/:action', :controller => 'ajax', :as => 'ajax'
 
   match "search", :to => 'search#search_words'
   root :to => 'games#index'

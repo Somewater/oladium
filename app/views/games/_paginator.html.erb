@@ -1,0 +1,19 @@
+<% if @games.size > GamesController::GAMES_PER_PAGE
+
+  @page = 0 unless @page
+   unless @pages && @pages.to_i > 0
+     @pages = (@games.size / GamesController::GAMES_PER_PAGE.to_f).ceil
+   end
+%>
+    <% if @pages > 1 %>
+        <div class="pagination pagination-centered">
+            <ul>
+                <% (0...@pages).each do |page| %>
+                    <li <%= page == @page ? 'class="active"'.html_safe : '' %>>
+                        <a href="<%= url_for_params(:page => page + 1) %>"><%= page + 1 %></a>
+                    </li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+<% end %>
