@@ -1,5 +1,5 @@
 
-<div class="canvas span-24" id="canvas">
+<div class="canvas span12" id="canvas">
   <ul id="sortable">
   </ul>
 </div>
@@ -23,7 +23,7 @@
             '<a href="' + game.path + '"><img src="' + game.image + '" class="left" width="40" height="40"></img></a>' +
             '<span class="left"><b>' + game.title + '</b><br>' + (game.description ? game.description.substr(0, 100) : 0) + '</span>' +
             '<div class="panel right">';
-    result+='<a href="javascript:" class="ss_sprite ss_add icon"></a>' + '<a href="javascript:" class="ss_sprite ss_delete icon"></a>';
+    result+='<a href="javascript:" class="ss_add"><i class="icon-thumbs-up"></i></a>' + '<a href="javascript:" class="ss_delete"><i class=" icon-remove-sign"></i></a>';
     result +=
             '</div>' +
             '<small></small><div class="status_panel">-</div></small>' +

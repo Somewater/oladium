@@ -19,23 +19,27 @@
 </head>
 <body>
 <div class="container">
-  <div class="span-24">
-    <% unless notice.blank? %><p class="notice"><%= notice %></p><% end %>
-    <% unless alert.blank? %><p class="alert"><%= alert %></p><% end %>
-  </div>
-    <div class="span-12 last">
-      <a href="<%= admin_path %>"><h2>Admin area</h2></a>
+    <div class="row">
+      <div class="span12">
+        <% unless notice.blank? %><p class="notice"><%= notice %></p><% end %>
+        <% unless alert.blank? %><p class="alert"><%= alert %></p><% end %>
+      </div>
     </div>
-    <div class="span-12 last">
-      <span>Logging as <%= current_user.email %></span>
-      <span><a href="<%= destroy_user_session_path() %>">Logout</a></span>
+    <div class="row">
+        <div class="span6">
+          <a href="<%= admin_path %>"><h2>Admin area</h2></a>
+        </div>
+        <div class="span6">
+          <span>Logging as <%= current_user.email %></span>
+          <span><a href="<%= destroy_user_session_path() %>">Logout</a></span>
+        </div>
+        <div class="span12">
+          <%= yield %>
+        </div>
     </div>
-    <div class="span-24">
-      <%= yield %>
+    <div class="well">
+      © 2012
     </div>
-  <div class="span-24">
-    © 2012
-  </div>
 </div>
 </body>
 </html>
