@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require ./bootstrap/bootstrap
 //= require ./raty
+//= require ./bxslider
 //  GOOGLE
 var _gaq = _gaq || [];
 _gaq.push(['_setAccount', 'UA-34242765-1']);

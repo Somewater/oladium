@@ -1,6 +1,24 @@
 <% if @primary_games && @primary_games.size > 0 && @page.to_i == 0 %>
-    <div class="hero-unit" style="padding: 20px;">
-        <p><%= I18n.t('hello') %></p>
+    <div style="padding: 20px;">
+        <ul class="bxslider">
+            <% @primary_games.in_groups_of(3, false).each do |game_trio| %>
+                <li>
+                    <div>
+                        <% game_trio.each do |game| %>
+                            <%= render :partial => 'games/primary_game', :locals => {:game => game}  %>
+                        <% end %>
+                    </div>
+                </li>
+            <% end %>
+        </ul>
+
     </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.bxslider').bxSlider({
+                pager: false
+            });
+        });
+    </script>
 <% end %>
 <%= render 'games/games' %>
