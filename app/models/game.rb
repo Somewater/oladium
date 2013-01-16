@@ -32,7 +32,7 @@ class Game < ActiveRecord::Base
 
   def stars
     if(self.votings > 0)
-      self.votes / self.votings
+      self.votes / self.votings.to_f
     else
       5
     end

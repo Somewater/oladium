@@ -91,6 +91,10 @@
                     width += (self.opt.size + space);
                 }
 
+                if (typeof self.opt.readOnly == 'function') {
+                    self.opt.readOnly = self.opt.readOnly.call(self);
+                }
+
                 if (self.opt.readOnly) {
                     methods.fixHint.call(self);
 

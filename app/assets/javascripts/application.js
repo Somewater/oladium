@@ -35,7 +35,9 @@ $(function(){
             return $(this).attr('score');
         },
         hints: ['1', '2', '3', '4', '5'],
-        readOnly: true,
+        readOnly: function() {
+            return $(this).attr('edit') != '1';
+        },
         click: function(score, evt) {
             if(!$(this).attr('voted')){
                 $(this).attr('voted', true)

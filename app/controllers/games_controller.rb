@@ -3,7 +3,7 @@ class GamesController < ApplicationController
   GAMES_PER_PAGE = 12
 
   def index
-    @page = [params[:page].to_i - 1, 0].max if params[:page]
+    assign_page()
     @games = Game.order('priority DESC', 'created_at DESC')
     @primary_games = @games.take(4)
     render :template => 'games/index'

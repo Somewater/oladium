@@ -1,28 +1,44 @@
-<div class="row pagination-centered">
-    <h3><%= @game.title %></h3>
-    <div id="game">
+<div class="row" style="text-align: center;">
+    <div class="span12">
+        <h3 style="color: #666666"><%= @game.title %></h3>
+    </div>
+    <div class="span12" id="game" style="overflow: visible;">
       <embed src="<%= @game.body %>" menu="false" quality="high" width="<%= @game.width %>" height="<%= @game.height %>"
              type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
     </div>
 
-    <% @game.each_tag do |tag, html_name| %>
-        <a href="<%= tags_path(html_name) %>"><span class="label label-info"><%= tag %></span></a>
-    <% end %>
 
-    <hr/>
+    <div class="span12">
+        <div class="span7">
+            <div style="text-align: left">
+                <% unless @game.description.blank? %>
+                    <div class="description well">
+                        <%= @game.description.html_safe %>
+                    </div>
+                <% end %>
+                <% unless @game.driving.blank? %>
+                    <div class="driving well">
+                        <%= @game.driving.html_safe %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
 
-    <div style="text-align: left">
-        <% unless @game.description.blank? %>
-            <div class="description">
-                <%= @game.description.html_safe %>
+        <div class="span2 well">
+            <% @game.each_tag do |tag, html_name| %>
+                <a href="<%= tags_path(html_name) %>"><span class="label label-info"><%= truncate(tag, :length => 15) %></span></a>
+            <% end %>
+        </div>
+
+        <div class="span2">
+            <div class="stars well" edit="1" id="stars-<%= @game.id %>" score="<%= number_with_precision( @game.stars, :number_with_precision => 1) %>"></div>
+        </div>
+
+        <div class="span2" style="text-align: left;">
+            <div class="well">
+                <p><i class="icon-eye-open"></i>&nbsp;<%= t('game.views', :d => @game.usage) %></p>
+                <p><i class="icon-thumbs-up"></i>&nbsp;<%= t('game.ratings', :d => @game.votings) %></p>
             </div>
-        <% end %>
-        <% unless @game.driving.blank? %>
-            <div class="driving">
-                <%= @game.driving.html_safe %>
-            </div>
-        <% end %>
+        </div>
     </div>
-
-    <hr/>
 </div>

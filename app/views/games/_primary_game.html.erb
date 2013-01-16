@@ -4,7 +4,7 @@
             <a href="<%= game_path(game) %>" class="thumbnail">
                 <img src="<%= game.image %>" alt="<%= game.title %>">
             </a>
-            <div class="stars" id="stars-<%= game.id %>" style="margin-left: 10px; margin-right: 10px;" score="<%= game.stars %>"></div>
+            <div class="stars" id="stars-<%= game.id %>" style="margin-left: 10px; margin-right: 10px;" score="<%= number_with_precision( game.stars, :number_with_precision => 1) %>"></div>
         </div>
         <div style="font-size: 12px; overflow: hidden; height: 100%">
             <a href="<%= game_path(game) %>"><h5><%= game.title %></h5></a>

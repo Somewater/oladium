@@ -13,4 +13,9 @@ class ApplicationController < ActionController::Base
 		cookies[:locale] = @locale unless cookies[:locale] && cookies[:locale] == @locale.to_s
 		I18n.locale = @locale
   end
+
+  def assign_page()
+    @page = [params[:page].to_i - 1, 0].max if params[:page]
+    @page
+  end
 end

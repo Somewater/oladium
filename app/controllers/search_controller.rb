@@ -47,7 +47,7 @@ class SearchController < ApplicationController
 
   def search_words
     @query = params['words'] || params['wordsline']
-    @page = [params['page'].to_i - 1, 0].max
+    assign_page()
     @query = @query.to_s.strip
     @words = @query.split.select{|w| w.size > 2}.map(&:strip)
     @results = []

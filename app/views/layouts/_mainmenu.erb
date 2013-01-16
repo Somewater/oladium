@@ -28,5 +28,10 @@
             <li><a href="<%= category_path(@game.category) %>"><%= @game.category.title %></a> <span class="divider">/</span></li>
             <li class="active"><%= @game.title %></li>
         </ul>
+    <% elsif @tag_word %>
+        <ul class="breadcrumb">
+            <li><%= t('categories.tags') %><span class="divider">/</span></li>
+            <li class="active"><%= @tag_word %></li>
+        </ul>
     <% end %>
 </div>

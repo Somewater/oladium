@@ -18,12 +18,13 @@ class CategoryController < ApplicationController
   end
 
   def tags
-    word = params[:tag].to_s.gsub(/\+([^\+]+)/,' \1').gsub('++', '+')
-    @games = Game.where(["CONCAT(IFNULL(tags,'')) LIKE (?)", '%' + word.to_s + '%']).order('priority DESC', 'created_at DESC')
+    @tag_word = params[:tag].to_s.gsub(/\+([^\+]+)/,' \1').gsub('++', '+')
+    @games = Game.where(["CONCAT(IFNULL(tags,'')) LIKE (?)", '%' + @tag_word.to_s + '%']).order('priority DESC', 'created_at DESC')
     show_games_index()
   end
 
   def show_games_index
+    assign_page();
     flash.now.notice = I18n.t('games.empty_set') if @games.size == 0
 
     render :template => 'games/index'

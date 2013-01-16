@@ -10,6 +10,10 @@ en:
     huge_result: Request satisfies most of the materials from the site, try to narrow down your search
   categories:
     not_found: Category not found
+    tags: Tags
   games:
     not_found: Game not found
     empty_set: Selected category is empty
+  game:
+    views: "Views: %{d}"
+    ratings: "Ratings: %{d}"
