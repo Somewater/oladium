@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130113180553) do
+ActiveRecord::Schema.define(:version => 20130117203419) do
 
   create_table "categories", :force => true do |t|
     t.string "name",  :null => false
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(:version => 20130113180553) do
     t.integer  "votes",       :default => 0
     t.integer  "votings",     :default => 0
     t.integer  "usage",       :default => 0
+    t.string   "options"
   end
 
   add_index "games", ["net", "net_id"], :name => "index_games_on_net_and_net_id", :unique => true

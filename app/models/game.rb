@@ -37,4 +37,37 @@ class Game < ActiveRecord::Base
       5
     end
   end
+
+  def opts
+    unless @opts_cache
+      p = self.options.to_s
+      @opts_cache = {}
+      p.split(';').each do |pair|
+        k, v = pair.split('=')
+        @opts_cache[k.to_sym] =
+            if v == 'true'
+              true
+            elsif v == 'false'
+              false
+            elsif v.match(/^\d+$/)
+              v.to_i
+            elsif v.match(/^\d+\.\d+$/)
+              v.to_f
+            else
+              v
+            end
+      end
+    end
+    @opts_cache
+  end
+
+  def opts=(value)
+    s = value ? value.map{|k,v| '' << k.to_s << '=' << v.to_s }.join(';') : nil
+    self.options = s && s.size == 0 ? nil : s
+  end
+
+  def options=(value)
+    @opts_cache = nil
+    super(value)
+  end
 end

@@ -3,10 +3,18 @@
         <h3 style="color: #666666"><%= @game.title %></h3>
     </div>
     <div class="span12" id="game" style="overflow: visible;">
-      <embed src="<%= @game.body %>" menu="false" quality="high" width="<%= @game.width %>" height="<%= @game.height %>"
-             type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
+        <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="<%= @game.width %>" height="<%= @game.height %>">
+            <param name="menu" value="false" />
+            <param name="quality" value="high" />
+            <param name="src" value="<%= @game.body %>" />
+            <% if @game.opts[:stage3d] %><param name="wmode" value="direct" /><% end %>
+            <embed type="application/x-shockwave-flash" pluginspage="http://get.adobe.com/flashplayer/" menu="false" quality="high"
+                   width="<%= @game.width %>" height="<%= @game.height %>"
+                   src="<%= @game.body %>" <%= @game.opts[:stage3d] ? 'wmode="direct"'.html_safe : '' %>/>
+        </object>
     </div>
 
+    <div>&nbsp;</div>
 
     <div class="span12">
         <div class="span7">

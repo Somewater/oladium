@@ -21,8 +21,10 @@
     result +=
         '<li class="ui-state-default" style="position: relative;" id="' + (game.net + ':' + game.net_id) + '">' +
             '<a href="' + game.path + '"><img src="' + game.image + '" class="left" width="40" height="40"></img></a>' +
-            '<span class="left"><b>' + game.title + '</b><br>' + (game.description ? game.description.substr(0, 100) : 0) + '</span>' +
-            '<div class="panel right">';
+            '<div style="max-height: 55px; overflow: hidden;">' +
+            '<span class="left"><a href="' + game.path + '"><b>' + game.title + '</b></a><br>' + (game.description ? game.description.substr(0, 100) : 0) + '</span>' +
+            '</div>' +
+            '<div class="right">';
     result+='<a href="javascript:" class="ss_add"><i class="icon-thumbs-up"></i></a>' + '<a href="javascript:" class="ss_delete"><i class=" icon-remove-sign"></i></a>';
     result +=
             '</div>' +
@@ -75,8 +77,7 @@
   .canvas ul { list-style-type: none; }
 	.canvas li { margin: 5px; padding: 5px; width: 90%; min-height: 50px; vertical-align: top;}
   .left {float: left; margin-right: 10px;}
-  .right {float: right; margin-left: 10px;}
-  .panel {position: relative; vertical-align: top;}
+  .right {position: absolute; right: 5px; top: 5px;}
   .status_panel {position: absolute; bottom: 0; right: 0;}
   .icon {position: absolute; top: 0; right: 0;}
 <% end %>

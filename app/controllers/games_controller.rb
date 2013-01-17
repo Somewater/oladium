@@ -4,14 +4,20 @@ class GamesController < ApplicationController
 
   def index
     assign_page()
-    @games = Game.order('priority DESC', 'created_at DESC')
-    @primary_games = @games.take(4)
+    @games = Game.order('`usage` DESC', '(votes / votings) DESC', 'priority DESC', 'created_at DESC')
+    if(@games.size > 15)
+      primary_quantity = 3
+      primary_quantity = 6 if @games.size > 30
+      primary_quantity = 9 if @games.size > 50
+      primary_quantity = 12 if @games.size > 100
+      @primary_games = @games.slice!(0, primary_quantity)
+    end
     render :template => 'games/index'
   end
 
   def show
     begin
-      @game = Game.find_by_id(params[:id]) || Game.find_by_slug(params[:id])
+      @game = Game.find_by_id(params[:id]) || Game.find_by_slug(params[:id]) || (raise ActiveRecord::RecordNotFound)
     rescue ActiveRecord::RecordNotFound
       if !@game && (params[:id] =~ /net-.+-id-.+/) == 0
         match = params[:id].match(/net-(.+)-id-(.+)/)

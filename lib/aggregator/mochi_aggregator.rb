@@ -59,6 +59,7 @@ module Aggregator
           g.image = game_data['thumbnail_url']
           g.tags = game_data['tags'].join(',')
           g.category = self.from_net_category(game_data['category'])
+          g.opts[:stage3d] = true if game_data['stage3d']
           @games << g
         end
       end

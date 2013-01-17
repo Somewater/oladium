@@ -28,7 +28,11 @@ module Aggregator
 
 
   class Game
-    attr_accessor :net, :net_id, :title, :description, :body, :type, :width, :height, :image, :tags, :category
+    attr_accessor :net, :net_id, :title, :description, :body, :type, :width, :height, :image, :tags, :category, :opts
+
+    def initialize
+      opts = {}
+    end
 
     # создать ::Game
     def to_game(*args)
@@ -48,6 +52,7 @@ module Aggregator
       g.image = self.image
       g.tags = self.tags
       g.category = self.category
+      g.opts = self.opts if self.opts
       g
     end
   end
