@@ -1,5 +1,5 @@
 ssh -t root@hellespontus.com "cd oladium && \
 git pull && \
-touch tmp/restart.txt && \
+thin -C /etc/thin/oladium.yml restart && \
 exit"
 echo "Succesfully deployed"
