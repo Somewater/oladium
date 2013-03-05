@@ -1,6 +1,9 @@
 class Category < ActiveRecord::Base
 
-  attr_accessible :name, :title
+  extend ::I18nColumns::Model
+
+  i18n_columns :title
+  attr_accessible :name
 
   has_many :games
 
