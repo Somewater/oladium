@@ -1,6 +1,7 @@
 module Admin
   class AdminController < ApplicationController
     before_filter :authenticate_user!
+    before_filter :set_en_locale
     layout 'admin_area'
     include ApplicationHelper
 
@@ -21,12 +22,19 @@ module Admin
 
     def games_gateway
       params[:net] = 'mochi' unless params[:net]
+
+      @total = 0
+      @offset = 0
+      @query = ''
       if(params[:net] == 'db')
         @games = Game.all
       else
         aggregator = ::Aggregator.send(params[:net].to_sym)
-        aggregator.load()
+        aggregator.load(params)
         @games = aggregator.games.map &:to_game
+        @total = aggregator.total
+        @offset = aggregator.offset
+        @query = aggregator.query
       end
 
       @games.map! do |game|
@@ -35,7 +43,8 @@ module Admin
         h
       end
 
-      render :text => @games.to_json
+      render :text => {:total => (@total > 0 ? @total : @games.size),
+                       :offset => @offset, :games => @games, :query => @query}.to_json
     end
 
     def controller_gateway
@@ -64,6 +73,10 @@ module Admin
       params.delete('new_record')
       params.delete('category')
       params.delete('path')
+    end
+
+    def set_en_locale
+      I18n.locale = :en
     end
 
   end

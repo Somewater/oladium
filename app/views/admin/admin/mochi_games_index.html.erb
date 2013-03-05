@@ -1,9 +1,63 @@
 <div class="span12">
+  <div class="container">
+      <div class="span4 form-horizontal">
+
+          <div class="control-group">
+              <label class="control-label">Categories</label>
+              <div class="controls">
+                  <select id="category">
+                      <option selected>all</option>
+                      <% Category.all.each do |category| %>
+                          <option><%= category.name %></option>
+                      <% end %>
+                  </select>
+              </div>
+          </div>
+
+          <div class="control-group">
+              <label class="control-label" for="inputSearch">Search</label>
+              <div class="controls">
+                  <input type="text" id="inputSearch" placeholder="Search...">
+              </div>
+          </div>
+
+          <div class="control-group">
+              <label class="control-label" for="inputTags">Tags</label>
+              <div class="controls">
+                  <input type="text" id="inputTags" placeholder="Tags...">
+              </div>
+          </div>
+
+      </div>
+
+      <div class="span3 form-horizontal">
+          <div class="control-group">
+              <label class="control-label" for="inputTotal">Total</label>
+              <div class="controls">
+                  <input type="text" id="inputTotal" value="0" readonly>
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="inputOffset">Offset</label>
+              <div class="controls">
+                  <input type="text" id="inputOffset" placeholder="Offset" value="0">
+              </div>
+          </div>
+          <div class="control-group">
+              <label class="control-label" for="inputLimit">Limit</label>
+              <div class="controls">
+                  <input type="text" id="inputLimit" placeholder="Limit" value="20">
+              </div>
+          </div>
+      </div>
+  </div>
   <button class="get_games">Get games</button>
 </div>
 <script type="text/javascript">
   $('.get_games').click(function(event){
-    loadGames('mochi');
+    var options = {category: $('#category').val(), search: $('#inputSearch').val(),
+                   tags: $('#inputTags').val(), limit: $('#inputLimit').val(), offset: $('#inputOffset').val()};
+    loadGames('mochi', options);
   });
 </script>
 <%= render :partial => 'games_index' %>

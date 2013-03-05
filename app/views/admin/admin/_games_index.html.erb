@@ -57,17 +57,28 @@
     $('.ss_add', icon).toggle(game.new_record);
     $('.ss_delete', icon).toggle(!game.new_record);
   }
-  function loadGames(net){
+  function loadGames(net, options){
     $('#sortable').empty().append($('<p>Loading...</p>'));
-    $.ajax({url: '<%= admin_path(:action => 'games_gateway') %>', data: {net: net}, success: function(response){
-      var games = $.parseJSON(response);
+    if(!options) options = {};
+    options['net'] = net;
+    $.ajax({url: '<%= admin_path(:action => 'games_gateway') %>', data: options, success: function(responseStr){
+      var response = $.parseJSON(responseStr);
+      var games = response.games;
+      var query = response.query;
       var holder = $('#sortable')
       holder.empty();
-      $.each(games, function(index, game){
-        var icon = createGameItem(game);
-        holder.append(icon);
-      });
-      refreshSortables();
+      if(games.length > 0){
+        $.each(games, function(index, game){
+          var icon = createGameItem(game);
+          holder.append(icon);
+        });
+        refreshSortables();
+        $('#inputTotal').val(response.total);
+        $('#inputOffset').val(response.offset);
+      } else {
+        holder.append($('<p style="color: red;">Empty</p>'))
+        $('#inputTotal').val(0);
+      }
     } });
   }
 <% end %>

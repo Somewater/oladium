@@ -7,6 +7,7 @@ class Game < ActiveRecord::Base
 
   attr_accessible :net, :body, :description, :driving, :height, :slug, :net_id, :priority, :title,
                   :type, :width, :image, :tags, :votes, :votings
+  attr_accessor   :game_model # для ссыдки на связанную Aggregator::Game
 
   belongs_to :category
 

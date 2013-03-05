@@ -12,7 +12,7 @@ module Aggregator
     end
 
     # заполнить геймами
-    def load
+    def load(params)
       raise 'override me'
     end
 
@@ -24,14 +24,28 @@ module Aggregator
       @games
     end
 
+    def total
+      @games ? @games.size : 0
+    end
+
+    def offset
+      0
+    end
+
+    def query
+      ''
+    end
+
   end
 
 
   class Game
-    attr_accessor :net, :net_id, :title, :description, :body, :type, :width, :height, :image, :tags, :category, :opts
+    attr_accessor :net, :net_id, :title, :description, :body, :type, :width, :height, :image, :tags, :category, :opts,
+                  :query
 
     def initialize
       opts = {}
+      @query = ''
     end
 
     # создать ::Game
@@ -41,6 +55,7 @@ module Aggregator
       else
         g = ::Game.new(*args)
       end
+      g.game_model = self
       g.net = self.net
       g.net_id = self.net_id
       g.title = self.title

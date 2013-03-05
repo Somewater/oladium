@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
 
   GAMES_PER_PAGE = 12
+  GET_PATTERN = /net-(?<net>.+)-id-(?<id>.+)\?q=(?<query>.+)/
 
   def index
     assign_page()
@@ -19,12 +20,12 @@ class GamesController < ApplicationController
     begin
       @game = Game.find_by_id(params[:id]) || Game.find_by_slug(params[:id]) || (raise ActiveRecord::RecordNotFound)
     rescue ActiveRecord::RecordNotFound
-      if !@game && (params[:id] =~ /net-.+-id-.+/) == 0
-        match = params[:id].match(/net-(.+)-id-(.+)/)
-        net = match[1]
-        net_id = match[2]
+      match = params[:id] ? params[:id].to_s.match(GET_PATTERN) : nil
+      if !@game && match
+        net = match[:net]
+        net_id = match[:id]
         a = Aggregator.send(net.to_sym)
-        a.load
+        a.load(JSON.load(match[:query]).symbolize_keys)
         @game = a.games.map{|g| g.to_game}.find{|g| g.net == net && g.net_id == net_id}
       end
     end
