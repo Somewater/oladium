@@ -28,7 +28,7 @@ module I18nColumns
       params = names.last && names.last.is_a?(Hash) ? names.pop : {}
       names.each do |name|
         self.translates(name)
-        self.attr_accessible(*LOCALES.map{|l| name.to_s + '_' + l })
+        self.attr_accessible(*LOCALES.map{|l| name.to_s + '_' + l }, name.to_s)
         self.send(:define_method, (name.to_s + '_all=').to_sym) do |value|
           I18nColumns::LOCALES.each do |l|
             self.send (name.to_s + '_' + l + '=').to_sym, value

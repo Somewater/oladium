@@ -5,7 +5,7 @@ class GamesController < ApplicationController
 
   def index
     assign_page()
-    @games = Game.order('`usage` DESC', '(votes / votings) DESC', 'priority DESC', 'created_at DESC')
+    @games = Game.order('usage DESC', '(votes / votings) DESC', 'priority DESC', 'created_at DESC')
     if(@games.size > 15)
       primary_quantity = 3
       primary_quantity = 6 if @games.size > 30
