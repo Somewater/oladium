@@ -10,6 +10,7 @@ Oladium::Application.routes.draw do
   end
 
   resources :games, :only => [:show, :index]
+  match 'minecraft(/:action)', :controller => 'minecraft', :as => 'minecraft', :defaults => {:action => 'index'}
   resources :category, :only => :show
   match 'tags/:tag' => 'category#tags', :as => 'tags'
   match 'ajax/:action', :controller => 'ajax', :as => 'ajax'

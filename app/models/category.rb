@@ -5,6 +5,8 @@ class Category < ActiveRecord::Base
   i18n_columns :title
   attr_accessible :name
 
+  MINECRAFT = Category.new(:title_en => 'Minecraft', :title_ru => 'Minecraft', :name => 'minecraft')
+
   has_many :games
 
   def self.action;     Category.find_by_name('action');      end
