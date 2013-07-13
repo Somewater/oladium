@@ -1,5 +1,8 @@
 module Admin
   class AdminController < ApplicationController
+    
+    ACTIONS = ["db_games_index", "mochi_games_index"]
+    
     before_filter :authenticate_user!
     before_filter :set_en_locale
     layout 'admin_area'
@@ -7,7 +10,7 @@ module Admin
 
     def index
       @path_by_action = {}
-      self.action_methods.each { |action|
+      ACTIONS.each { |action|
         @path_by_action[action] = self.admin_path(:action => action) unless action == self.action_name || action =~ /gateway/
       }
     end
