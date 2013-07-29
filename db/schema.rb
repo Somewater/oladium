@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130713101939) do
+ActiveRecord::Schema.define(:version => 20130729162810) do
 
   create_table "categories", :force => true do |t|
     t.string "name",     :null => false
@@ -44,6 +44,21 @@ ActiveRecord::Schema.define(:version => 20130713101939) do
   end
 
   add_index "games", ["net", "net_id"], :name => "index_games_on_net_and_net_id", :unique => true
+
+  create_table "minecraft_users", :force => true do |t|
+    t.string   "login",                            :null => false
+    t.string   "password"
+    t.string   "session"
+    t.datetime "session_start"
+    t.string   "server"
+    t.boolean  "premium",       :default => false
+    t.integer  "money",         :default => 0
+    t.integer  "permissions",   :default => 0
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  add_index "minecraft_users", ["login"], :name => "index_minecraft_users_on_login", :unique => true
 
   create_table "rails_admin_histories", :force => true do |t|
     t.text     "message"
