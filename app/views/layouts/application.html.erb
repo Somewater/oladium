@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Oladium. Free online games</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="free online flash games feature genres such as action, puzzle, simulation, shooter, strategy" />
-    <meta name="keywords" content="games, free, online, games, flash, action games, sports games, puzzle games, adventure games" />
+    <% if defined? @game %>
+        <title>Oladium. <%= @game.title %></title>
+        <meta name="description" content="<%= @game.description %>" />
+        <meta name="keywords" content="<%= @game.tags %>" />
+    <% else %>
+        <title>Oladium. Free online games</title>
+        <meta name="description" content="free online flash games feature genres such as action, puzzle, simulation, shooter, strategy" />
+        <meta name="keywords" content="games, free, online, games, flash, action games, sports games, puzzle games, adventure games" />
+    <% end %>
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
