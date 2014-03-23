@@ -19,7 +19,7 @@ class GamesController < ApplicationController
 
   def show
     begin
-      @game = Game.find_by_id(params[:id]) || Game.find_by_slug(params[:id]) || (raise ActiveRecord::RecordNotFound)
+      @game = Game.find_by_slug(params[:id]) || Game.find_by_id(params[:id]) || (raise ActiveRecord::RecordNotFound)
     rescue ActiveRecord::RecordNotFound
       match = params[:id] ? params[:id].to_s.match(GET_PATTERN) : nil
       if !@game && match

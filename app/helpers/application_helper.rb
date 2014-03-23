@@ -1,6 +1,6 @@
 module ApplicationHelper
   def game_path(game)
-    super(game.id ? game.id : "net-#{game.net}-id-#{game.net_id}?q=" + (game.game_model ? game.game_model.query : ''))
+    super(game.respond_to?(:to_param) ? game.to_param : "net-#{game.net}-id-#{game.net_id}?q=" + (game.game_model ? game.game_model.query : ''))
   end
 
   def url_for_params(params)
