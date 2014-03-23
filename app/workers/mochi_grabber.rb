@@ -7,7 +7,7 @@ class MochiGrabber
 
   def perform(count = 100, limit = 100)
     status_setting = Setting.find_or_create_by_key('mochi_grabber.status')
-    if status_setting.value.present? && status_setting.value != 'sleep'
+    if status_setting.value == 'working' || status_setting.value.to_s[0..4] == 'stop:'
       logger.error("Status already '#{status_setting.value}'")
       return
     end
@@ -18,10 +18,21 @@ class MochiGrabber
     offset = offset_setting.value.to_i
 
     loaded_count = 0
+    c = 0
     while(loaded_count < count)
       mochi = Aggregator.mochi
       params = {:limit => limit, :offset => offset}
-      mochi.load(params)
+      load_try_count = 0
+      begin
+        mochi.load(params)
+      rescue Timeout::Error
+        load_try_count += 1
+        if load_try_count < 10
+          retry
+        else
+          throw $!
+        end
+      end
       saved_games = 0
       mochi.games.each do |g|
         if g.net_data['recommended']
@@ -33,7 +44,13 @@ class MochiGrabber
       end
 
       if mochi.games.empty? && mochi.total.to_i <= offset
-        status_setting.update_column :value, 'completed'
+        status_setting.update_column :value, 'stop:completed'
+        return
+      end
+
+      c += 1
+      if c > 100
+        status_setting.update_column :value, 'stop:cycle'
         return
       end
 
@@ -46,7 +63,7 @@ class MochiGrabber
     status_setting.update_column :value, 'sleep'
   rescue
     logger.error "#{$!}\n#{$!.backtrace.join("\n")}"
-    status_setting.update_column :value, $!.to_s if status_setting
+    status_setting.update_column :value, $!.to_s.truncate(200) if status_setting
   end
 
   def save_game(g, offset)

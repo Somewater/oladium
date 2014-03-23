@@ -58,17 +58,17 @@ module Aggregator
       g.game_model = self
       g.net = self.net
       g.net_id = self.net_id
-      g.title = self.title
+      g.title = self.title.truncate(255)
       g.description = self.description
       g.body = self.body
       g.type = self.type
       g.width = self.width
       g.height = self.height
-      g.image = self.image
-      g.tags = self.tags
+      g.image = self.image.truncate(255)
+      g.tags = self.tags.truncate(255)
       g.category = self.category
       g.opts = self.opts if self.opts
-      g.slug = self.slug
+      g.slug = self.slug.truncate(255)
       g.net_data = self.net_data.to_json
       g
     end
