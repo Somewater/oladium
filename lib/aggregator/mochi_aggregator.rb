@@ -78,6 +78,8 @@ module Aggregator
           g.category = self.from_net_category(game_data['category'])
           g.opts[:stage3d] = true if game_data['stage3d']
           g.query = @query
+          g.slug = game_data['slug']
+          g.net_data = game_data
           @games << g
         end
       end

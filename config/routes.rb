@@ -6,6 +6,9 @@ Oladium::Application.routes.draw do
   mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
 
   namespace 'admin' do
+    require 'sidekiq/web'
+    mount Sidekiq::Web => 'sidekiq'
+
     match '(:action(/:task))' => 'admin', :defaults => {:action => 'index'}
   end
 

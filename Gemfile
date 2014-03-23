@@ -27,3 +27,5 @@ gem "devise", "2.1"
 gem 'thin', '1.5.0', :platform => :ruby
 gem 'traco', '1.1.0'
 gem 'nokogiri'
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil

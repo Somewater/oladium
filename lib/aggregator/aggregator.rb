@@ -41,10 +41,10 @@ module Aggregator
 
   class Game
     attr_accessor :net, :net_id, :title, :description, :body, :type, :width, :height, :image, :tags, :category, :opts,
-                  :query
+                  :query, :slug, :net_data
 
     def initialize
-      opts = {}
+      @opts = {}
       @query = ''
     end
 
@@ -68,6 +68,8 @@ module Aggregator
       g.tags = self.tags
       g.category = self.category
       g.opts = self.opts if self.opts
+      g.slug = self.slug
+      g.net_data = self.net_data.to_json
       g
     end
   end

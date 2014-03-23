@@ -19,7 +19,7 @@ class CategoryController < ApplicationController
 
   def tags
     @tag_word = params[:tag].to_s.gsub(/\+([^\+]+)/,' \1').gsub('++', '+')
-    @games = Game.where(["CONCAT(IFNULL(tags,'')) LIKE (?)", '%' + @tag_word.to_s + '%']).order('priority DESC', 'created_at DESC')
+    @games = Game.where(["CONCAT(COALESCE(tags,'')) ILIKE (?)", '%' + @tag_word.to_s + '%']).order('priority DESC', 'created_at DESC')
     show_games_index()
   end
 

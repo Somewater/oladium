@@ -3,4 +3,5 @@
 log/*
 tmp/*
 public/assets/*
+public/games/*
 Gemfile.lock

@@ -59,13 +59,13 @@ class SearchController < ApplicationController
       # array of SearchResult
       @results = []
       @games = []
-      #Product::Translation.where(['CONCAT(description,title) LIKE ("%?%")', word])
+      #Product::Translation.where(['CONCAT(description,title) ILIKE ("%?%")', word])
 
       translations = []
       translated_fields = ['title','description','tags']
       model_class = Game
       @words.each do |word|
-        result = model_class.where(["CONCAT(#{translated_fields.map{|m| "IFNULL(#{m},'')" }.join(',')}) LIKE (?)", '%' + word.to_s + '%']).limit(50)
+        result = model_class.where(["CONCAT(#{translated_fields.map{|m| "COALESCE(#{m},'')" }.join(',')}) ILIKE (?)", '%' + word.to_s + '%']).limit(50)
         translations << result.to_a if result && result.size > 0
       end
 

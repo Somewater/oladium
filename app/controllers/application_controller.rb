@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
 
   protected
-	def set_locale
-		@locale = params[:locale]
+  def set_locale
+    @locale = params[:locale]
     @locale = request.host.split('.').last unless @locale
     @locale = I18n.default_locale unless @locale && @locale =~ /^(en|ru)$/
-		I18n.locale = @locale
+    I18n.locale = @locale
   end
 
   def assign_page()

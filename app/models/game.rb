@@ -71,4 +71,16 @@ class Game < ActiveRecord::Base
     @opts_cache = nil
     super(value)
   end
+
+  def url
+    if self.type == TYPE_EMBED
+      self.body
+    elsif self.type == TYPE_SWF_FILE
+      Game.game_root + "/" + self.body.to_s
+    end
+  end
+
+  def self.game_root
+    '/games'
+  end
 end
