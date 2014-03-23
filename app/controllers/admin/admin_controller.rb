@@ -1,7 +1,7 @@
 module Admin
   class AdminController < ApplicationController
     
-    ACTIONS = ["db_games_index", "mochi_games_index"]
+    ACTIONS = ["db_games_index", "mochi_games_index", "sidekiq_tasks"]
     
     before_filter :authenticate_user!
     before_filter :set_en_locale
@@ -21,6 +21,14 @@ module Admin
 
     def mochi_games_index
       #@games = ::Aggregator.mochi.load().games.map(&:to_game)
+    end
+
+    def sidekiq_tasks
+      case params[:task]
+        when 'mochi_grabber'
+          MochiGrabber.perform_async(params[:count].to_i)
+          flash.now.notice = "Mochi Grabber created at #{Time.new}"
+      end
     end
 
     def games_gateway
