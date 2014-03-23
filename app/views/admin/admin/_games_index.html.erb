@@ -67,17 +67,16 @@
       var query = response.query;
       var holder = $('#sortable')
       holder.empty();
+	  $('#inputTotal').val(response.total);
       if(games.length > 0){
         $.each(games, function(index, game){
           var icon = createGameItem(game);
           holder.append(icon);
         });
         refreshSortables();
-        $('#inputTotal').val(response.total);
         $('#inputOffset').val(response.offset);
       } else {
         holder.append($('<p style="color: red;">Empty</p>'))
-        $('#inputTotal').val(0);
       }
     } });
   }

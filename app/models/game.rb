@@ -1,7 +1,7 @@
 class Game < ActiveRecord::Base
 
   TYPE_EMBED = 'embed'
-  TYPE_FILE = 'file'
+  TYPE_SWF_FILE = 'swf_file'
 
   self.inheritance_column = :nothing
 
