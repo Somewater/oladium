@@ -8,7 +8,7 @@
     <% if @pages > 1 %>
         <div class="pagination pagination-centered">
             <ul>
-                <% (0...@pages).each do |page| %>
+                <% (0...@pages).take(10).each do |page| %>
                     <li <%= page == @page ? 'class="active"'.html_safe : '' %>>
                         <a href="<%= url_for_params(:page => page + 1) %>"><%= page + 1 %></a>
                     </li>
