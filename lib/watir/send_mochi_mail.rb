@@ -28,7 +28,7 @@ class SendMochiMail
     @browser.text_field(:id, "msg_body").set(body)
     @browser.button(:id, "b_send").click
     @logger.info "Emailed link '#{user_link}'"
-    #@browser.speed = :zippy
+    @browser.speed = :zippy
   end
 
   def stop_alerts!
@@ -67,8 +67,9 @@ class SendMochiMail
   end
 
   def process_file(file_name = 'authors.txt')
-    @browser.speed = :zippy
+    @browser.speed = :fast
     File.open(file_name) do |f|
+      c = 0
       f.each_line do |line|
         arr = line.split(';;;;')
         author = arr[0]
@@ -76,6 +77,8 @@ class SendMochiMail
         sig = arr[2]
         games = arr.drop(3)
         email(author_link, "Publishing your game#{games.size > 1 ? 's' : ''}", get_message(author, games, sig))
+        c += 1
+        puts "#{c}) #{author} emailed"
       end
     end
   end
