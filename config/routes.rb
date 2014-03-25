@@ -1,5 +1,7 @@
 Oladium::Application.routes.draw do
 
+  devise_for :developers
+
   match 'sitemap.xml' => 'sitemaps#sitemap'
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users

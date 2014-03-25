@@ -10,6 +10,7 @@ class Game < ActiveRecord::Base
   attr_accessor   :game_model # для ссыдки на связанную Aggregator::Game
 
   belongs_to :category
+  belongs_to :developer
 
   def category
     super || Category.default
