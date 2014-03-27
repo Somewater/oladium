@@ -51,15 +51,28 @@ class SendMochiMail
 
   def generate_file
     authors = {}
-    Game.find_each do |game|
-      net_data = JSON.parse(game.net_data)
-      author = net_data['author']
-      author_link = net_data['author_link']
-      authors[author] = [author_link] unless authors[author]
-      authors[author] << Developer.find_by_login(author).sig
-      authors[author] << game.title
+    ids = Game.where('developer_id IS NULL').pluck(:id)
+    ids.each_slice.each do |slice_ids|
+      Game.where(id: slice_ids).each do |game|
+        net_data = JSON.parse(game.net_data)
+        author = net_data['author']
+        dev = Developer.find_by_login(author)
+        if dev
+          dev.games << game
+        else
+          dev = Developer.create(:login => author,:email => "#{author}@oladium.com", :password => 'oladium')
+          dev.games << game
+
+          author_link = net_data['author_link']
+          authors[author] = [author_link] unless authors[author]
+        end
+        if authors[author]
+          authors[author] << dev.sig
+          authors[author] << game.title
+        end
+      end
     end
-    File.open('authors.txt', 'w') do |f|
+    File.open("authors-#{Time.new.day}.txt", 'w') do |f|
       authors.each do |author, data|
         f.puts [author].concat(data).join(';;;;')
       end
