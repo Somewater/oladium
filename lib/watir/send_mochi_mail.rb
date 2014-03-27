@@ -23,12 +23,17 @@ class SendMochiMail
 
     stop_alerts!
 
-    @browser.link(:text, "Private Message").click
-    @browser.text_field(:id, "msg_subject").set(title)
-    @browser.text_field(:id, "msg_body").set(body)
-    @browser.button(:id, "b_send").click
-    @logger.info "Emailed link '#{user_link}'"
-    @browser.speed = :zippy
+    begin
+      @browser.link(:text, "Private Message").click
+      @browser.text_field(:id, "msg_subject").set(title)
+      @browser.text_field(:id, "msg_body").set(body)
+      @browser.button(:id, "b_send").click
+      @logger.info "Emailed link '#{user_link}'"
+      @browser.speed = :zippy
+      true
+    rescue Watir::Exception::UnknownObjectException
+      return false
+    end
   end
 
   def stop_alerts!
@@ -79,19 +84,24 @@ class SendMochiMail
     end
   end
 
-  def process_file(file_name = 'authors.txt')
+  def process_file(file_name = nil)
+    file_name = "authors-#{Time.new.day}.txt" unless file_name
     @browser.speed = :fast
     File.open(file_name) do |f|
       c = 0
       f.each_line do |line|
+        c += 1
+        next if c < 1
         arr = line.split(';;;;')
         author = arr[0]
         author_link = arr[1]
         sig = arr[2]
         games = arr.drop(3)
-        email(author_link, "Publishing your game#{games.size > 1 ? 's' : ''}", get_message(author, games, sig))
-        c += 1
-        puts "#{c}) #{author} emailed"
+        if email(author_link, "Publishing your game#{games.size > 1 ? 's' : ''}", get_message(author, games, sig))
+          puts "#{c}) #{author} emailed"
+        else
+          puts "#{c}) #{author} EMAIL ERROR!!!"
+        end
       end
     end
   end
