@@ -52,7 +52,7 @@ class SendMochiMail
   def generate_file
     authors = {}
     ids = Game.where('developer_id IS NULL').pluck(:id)
-    ids.each_slice.each do |slice_ids|
+    ids.each_slice(100).each do |slice_ids|
       Game.where(id: slice_ids).each do |game|
         net_data = JSON.parse(game.net_data)
         author = net_data['author']
