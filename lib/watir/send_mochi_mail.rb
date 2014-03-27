@@ -4,7 +4,7 @@ class SendMochiMail
 
   attr_reader :browser
 
-  def initialize()
+  def init()
     require 'watir'
     @browser = Watir::Browser.start "http://www.mochimedia.com/"
     @browser.link(:text, "Log In").click
