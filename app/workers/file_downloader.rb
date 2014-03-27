@@ -8,6 +8,8 @@ class FileDownloader
   sidekiq_options :retry => 3
 
   def perform(url, local_path, game_id = nil)
+    `wget "#{url}" -O #{local_path}` unless File.exists?(local_path)
+    return
     uri = URI(url)
 
     Net::HTTP.start(uri.host, uri.port) do |http|

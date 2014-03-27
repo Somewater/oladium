@@ -5,7 +5,7 @@ class MochiGrabber
 
   sidekiq_options :retry => false
 
-  def perform(count = 100, limit = 100)
+  def perform(count = 1000, limit = 100)
     status_setting = Setting.find_or_create_by_key('mochi_grabber.status')
     if status_setting.value == 'working' || status_setting.value.to_s[0..4] == 'stop:'
       logger.error("Status already '#{status_setting.value}'")
@@ -35,7 +35,7 @@ class MochiGrabber
       end
       saved_games = 0
       mochi.games.each do |g|
-        if g.net_data['recommended']
+        if !g.net_data['recommended'] && g.net_data['popularity'].to_i >= 100
           if save_game(g, offset)
             saved_games += 1
             count_setting.update_column :value, (count_setting.value.to_i + 1).to_s
