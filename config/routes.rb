@@ -1,7 +1,9 @@
 Oladium::Application.routes.draw do
 
-  #devise_for :developers
-  match "developers/sign_up" => "tmp_developers#index"
+  devise_for :developers, controllers: { registrations: "developers/registrations", sessions: "developers/sessions" }
+  authenticate :developer do
+    match 'developer/(:action)', :controller => 'developers/profiles', :as => 'developer_root'
+  end
 
   match 'sitemap.xml' => 'sitemaps#sitemap'
   mount Ckeditor::Engine => '/ckeditor'
@@ -25,6 +27,8 @@ Oladium::Application.routes.draw do
 
   match "search", :to => 'search#search_words'
   root :to => 'games#index'
+
+  match "advertisers", :to => "main_page#advertisers", :as => "advertisers"
 
   match 'not_found' => 'main_page#not_found', :as => 'not_found'
   match '*paths' => 'main_page#not_found'

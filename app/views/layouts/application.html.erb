@@ -50,8 +50,20 @@
 
     <%= yield %>
 </div>
-<div class="well pagination-centered" style="margin-top: 10px;">
-    <p class="muted">© 2012 Oladium</p>
+<div class="well pagination-centered muted" style="margin-top: 10px;">
+    <div class="row">
+        <div class="span6">
+        </div>
+        <div class="span2">
+            <p><a href="<%= developer_session_path  %>">For developers</a></p>
+
+        </div>
+        <div class="span2">
+            <a href="<%= advertisers_path %>">For advertisers</a>
+        </div>
+    </div>
+    <p>Contacts: games[at]oladium.com</p>
+    <p>© 2012 Oladium</p>
 </div>
 </body>
 </html>

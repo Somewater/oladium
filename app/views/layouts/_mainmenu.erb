@@ -29,6 +29,17 @@
                     </li-->
                 </ul>
             </div>
+            <% if developer_signed_in? %>
+                <div class="btn-group pull-right">
+                    <a href="<%= developer_root_path %>"><button class="btn"><%= current_developer.login %></button></a>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="<%= destroy_developer_session_path %>">Logout</a></li>
+                    </ul>
+                </div>
+            <% end %>
             <form action="/search" class="navbar-search pull-right">
                 <input name="words" type="text" placeholder="<%= I18n.t('search.site_search') %>" class="search-query span2">
             </form>

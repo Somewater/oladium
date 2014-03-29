@@ -10,10 +10,8 @@ class Developer < ActiveRecord::Base
   end
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :login
   has_many :games
-
-  attr_accessible :email, :login
 
   def sig
     require 'digest/sha2'

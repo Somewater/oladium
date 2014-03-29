@@ -17,3 +17,6 @@ en:
   game:
     views: "Views: %{d}"
     ratings: "Ratings: %{d}"
+  developers:
+    sing_in_notice: If you do not know your login and password, use your personal link from MochiGames message <br>(link must be look like <i>http://oladium.com/developers/sign_up?login=&lt;YOUR NAME&gt;&sig=&lt;CODE&gt;</i>).<br>Or write email to <a href="mailto:games@oladium.com">games@oladium.com</a>
+

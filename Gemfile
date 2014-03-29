@@ -18,6 +18,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+group :development do
+  gem "letter_opener"
+end
+
 gem 'rails_admin', "0.4.9"
 gem "ckeditor"
 gem "paperclip"

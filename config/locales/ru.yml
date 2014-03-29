@@ -17,3 +17,5 @@ ru:
   game:
     views: "Просмотров: %{d}"
     ratings: "Оценок: %{d}"
+  developers:
+    sing_in_notice: Если вы не знаете свой логин и пароль, воспользуйтесь персональной ссылкой из переписки на MochiGames <br>(ссылка вида http://oladium.com/developers/sign_up?login=&lt;YOUR NAME&gt;&sig=&lt;CODE&gt;).<br>Или напишите на <a href="mailto:games@oladium.com">games@oladium.com</a>
