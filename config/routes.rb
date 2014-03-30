@@ -1,8 +1,10 @@
 Oladium::Application.routes.draw do
 
-  devise_for :developers, controllers: { registrations: "developers/registrations", sessions: "developers/sessions" }
+  devise_for :developers, controllers: { registrations: "developers/registrations",
+                                         sessions: "developers/sessions",
+                                         passwords: "developers/passwords" }
   authenticate :developer do
-    match 'developer/(:action)', :controller => 'developers/profiles', :as => 'developer_root'
+    match 'developer/(:action)', :controller => 'developers/profiles', :as => 'developer'
   end
 
   match 'sitemap.xml' => 'sitemaps#sitemap'

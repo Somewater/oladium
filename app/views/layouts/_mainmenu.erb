@@ -31,7 +31,7 @@
             </div>
             <% if developer_signed_in? %>
                 <div class="btn-group pull-right">
-                    <a href="<%= developer_root_path %>"><button class="btn"><%= current_developer.login %></button></a>
+                    <a href="<%= developer_path %>"><button class="btn"><%= current_developer.login %></button></a>
                     <button class="btn dropdown-toggle" data-toggle="dropdown">
                         <span class="caret"></span>
                     </button>

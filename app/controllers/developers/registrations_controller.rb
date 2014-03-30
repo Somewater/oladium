@@ -12,8 +12,8 @@ class Developers::RegistrationsController < Devise::RegistrationsController
   def create
     if signed_developer
       super
-      unless resource.new_record?
-        RegistrationMail.welcome_email(resource_params[:email], params[:login], resource_params[:password]).deliver
+      if resource.errors.empty?
+        Developers::RegistrationMail.welcome_email(resource_params[:email], params[:login], resource_params[:password]).deliver
       end
     else
       render 'developers/sessions/error'
@@ -22,11 +22,13 @@ class Developers::RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def build_resource
+  def build_resource(hash = nil)
+    hash ||= resource_params || {}
     if signed_developer
+      signed_developer.update_attributes(hash) unless hash.empty?
       self.resource = signed_developer
     else
-      super
+      super(hash)
     end
   end
 
@@ -34,7 +36,7 @@ class Developers::RegistrationsController < Devise::RegistrationsController
     return @_signed_developer if defined? @_signed_developer
     if params[:login].present? && params[:sig].present?
       developer = resource_class.where(login: params[:login]).first
-      if developer.sig == params[:sig]
+      if developer && developer.sig == params[:sig]
         @_signed_developer = developer
         return developer
       end
