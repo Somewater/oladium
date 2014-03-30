@@ -22,6 +22,18 @@ class Developers::RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  def after_sign_up_path_for(res)
+    developer_path
+  end
+
+  def after_inactive_sign_up_path_for(res)
+    developer_path
+  end
+
+  def after_update_path_for(res)
+    developer_path
+  end
+
   def build_resource(hash = nil)
     hash ||= resource_params || {}
     if signed_developer

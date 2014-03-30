@@ -3,6 +3,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
 
+  def developer_root_path
+    developer_path
+  end
+
   protected
   def set_locale
     @locale = params[:locale]

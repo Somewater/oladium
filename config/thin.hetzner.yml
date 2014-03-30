@@ -1,6 +1,6 @@
 --- 
 chdir: /data/srv/oladium
-environment: development
+environment: production
 address: 0.0.0.0
 port: 5600
 timeout: 30
