@@ -1,5 +1,5 @@
 <p>You logged as <%= current_developer.login %></p>
-<div class="alert">Editing games is limited. You can only download new SWF files. Editing other parameters of the game will be available soon</div>
+<div class="alert">Games editing is limited. You can only upload new SWF files. Editing other parameters of the game will be available soon</div>
 <% current_developer.games.order(:id).each do |game| %>
         <div class="well span10">
             <div class="span2">
