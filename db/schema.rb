@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140330141921) do
+ActiveRecord::Schema.define(:version => 20140330201330) do
 
   create_table "categories", :force => true do |t|
     t.string "name",     :null => false
@@ -35,8 +35,6 @@ ActiveRecord::Schema.define(:version => 20140330141921) do
     t.datetime "updated_at",                            :null => false
   end
 
-  add_index "developers", ["email"], :name => "index_developers_on_email", :unique => true
-  add_index "developers", ["login"], :name => "index_developers_on_login", :unique => true
   add_index "developers", ["reset_password_token"], :name => "index_developers_on_reset_password_token", :unique => true
 
   create_table "games", :force => true do |t|
