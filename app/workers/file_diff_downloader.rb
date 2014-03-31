@@ -13,6 +13,11 @@ class FileDiffDownloader
     if File.exist?(local_path) && `cmp "#{local_path}" "#{tmp_file_path}"`.empty?
       File.unlink tmp_file_path
     else
+      if game_id
+        game = Game.find(game_id)
+        local_path = File.join File.dirname(local_path), 'main2.swf'
+        game.update_column :body, File.join(File.dirname(game.body), 'main2.swf')
+      end
       FileUtils.mv tmp_file_path, local_path, :force => true
     end
   end
