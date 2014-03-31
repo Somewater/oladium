@@ -106,6 +106,26 @@ class SendMochiMail
     end
   end
 
+  def process_profile_ready_file()
+    @browser.speed = :fast
+    File.open("authors-0.txt") do |f|
+      c = 0
+      f.each_line do |line|
+        c += 1
+        next if c < 1
+        arr = line.split(';;;;')
+        author = arr[0]
+        sig = arr[2]
+        user_link = "https://www.mochimedia.com/community/profile/#{author}"
+        if email(user_link, "Publishing your game#{arr[4] ? 's' : ''}", get_profile_ready_message(author, sig))
+          puts "#{c}) #{author} emailed"
+        else
+          puts "#{c}) #{author} EMAIL ERROR!!!"
+        end
+      end
+    end
+  end
+
   def get_message(author, games, sig)
     s = games.size > 1 ? 's' : ''
     games = games.each_with_index.to_a.select{|g,idx| idx % 2 == 0}.map{|g,idx| g.strip}
@@ -126,6 +146,25 @@ http://oladium.com/developers/sign_up?login=#{author}&sig=#{sig}
 Best wishes,
 Oladium administration
 MSG
+    m
+  end
+
+  def get_profile_ready_message(author, sig)
+    m = <<-MSG
+Hello.
+We are pleased to inform you that your profile on oladium.com is ready. You can upload your games without MochiGames Ads. To do this, follow the link to confirm your registration:
+http://oladium.com/developers/sign_up?login=#{author}&sig=#{sig}
+
+Warning: message is generated automatically. If you have already sent your games without MochiGames Ads, your request will be processed manually in the near future. However, self-uploading of your games through the online profile will accelerate the process.
+
+Let us know if you need more information.
+Email for communication:
+games@oladium.com
+(include your MochiGame name in the email)
+
+Best regards,
+Oladium administration
+    MSG
     m
   end
 end
