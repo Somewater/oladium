@@ -4,4 +4,8 @@ class MainPageController < ApplicationController
 
   def advertisers
   end
+
+  def sitemap
+    redirect_to '/sitemaps/sitemap.xml'
+  end
 end

@@ -7,7 +7,7 @@ Oladium::Application.routes.draw do
     match 'developer/(:action)', :controller => 'developers/profiles', :as => 'developer'
   end
 
-  match 'sitemap.xml' => 'sitemaps#sitemap'
+  match 'sitemap.xml' => 'main_page#sitemap'
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users
   mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
