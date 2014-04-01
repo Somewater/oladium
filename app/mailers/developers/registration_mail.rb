@@ -6,7 +6,7 @@ class Developers::RegistrationMail < ActionMailer::Base
   def welcome_email(email, login, password)
     @login = login
     @password = password
-    mail(:to => email, :subject => "Your profile created") do |format|
+    mail(:to => email, :subject => "Your profile has been created") do |format|
      format.html { render "developers/mailer/welcome_email" }
    end
   end
