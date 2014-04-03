@@ -8,17 +8,16 @@ Oladium::Application.routes.draw do
   end
 
   match 'sitemap.xml' => 'main_page#sitemap'
-  mount Ckeditor::Engine => '/ckeditor'
-  devise_for :users
-  mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
 
+  devise_for :users
   authenticate :user do
     require 'sidekiq/web'
     mount Sidekiq::Web => '/sidekiq'
-  end
-
-  namespace 'admin' do
-    match '(:action(/:task))' => 'admin', :defaults => {:action => 'index'}
+    mount Ckeditor::Engine => '/ckeditor'
+    mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
+    namespace 'admin' do
+      match '(:action(/:task))' => 'admin', :defaults => {:action => 'index'}
+    end
   end
 
   resources :games, :only => [:show, :index]
