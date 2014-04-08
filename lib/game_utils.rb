@@ -26,6 +26,6 @@ module GameUtils
     m = /^(?<name>.*[^\d]+)(?<version>\d+)?$/.match(filename_without_ext)
     version = m[:version] ? m[:version].to_i : 1
     version += 1
-    File.join(File.dirname(filepath), "#{m[:name]}#{version}#{ext}")
+    "#{m[:name]}#{version}#{ext}"
   end
 end
