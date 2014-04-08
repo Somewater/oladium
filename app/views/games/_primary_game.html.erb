@@ -2,7 +2,7 @@
     <div style="height: 100%">
         <div style="float: left; height: 100%; margin-right: 10px; margin-bottom: 30px; text-align: center;">
             <a href="<%= game_path(game) %>" class="thumbnail">
-                <img src="<%= Game.game_root + "/" + game.image %>" alt="<%= game.title %>">
+                <img src="<%= Game.url_root + "/" + game.image %>" alt="<%= game.title %>">
             </a>
             <div class="stars" id="stars-<%= game.id %>" style="margin-left: 10px; margin-right: 10px;" score="<%= number_with_precision( game.stars, :number_with_precision => 1) %>"></div>
         </div>

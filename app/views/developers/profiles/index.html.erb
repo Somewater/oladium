@@ -3,7 +3,7 @@
 <% current_developer.games.order(:id).each do |game| %>
         <div class="well span10">
             <div class="span2">
-                <img src="<%= Game.game_root + "/" + game.image.to_s %>" alt="<%= game.title %>">
+                <img src="<%= Game.url_root + "/" + game.image.to_s %>" alt="<%= game.title %>">
             </div>
             <div class="span7">
                 <a href="<%= game_path(game) %>"><h5><%= game.title %></h5></a>

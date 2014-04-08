@@ -1,5 +1,7 @@
 class Game < ActiveRecord::Base
 
+  include GameUtils
+
   TYPE_EMBED = 'embed'
   TYPE_SWF_FILE = 'swf_file'
 
@@ -77,11 +79,15 @@ class Game < ActiveRecord::Base
     if self.type == TYPE_EMBED
       self.body
     elsif self.type == TYPE_SWF_FILE
-      Game.game_root + "/" + self.body.to_s
+      Game.url_root + "/" + self.body.to_s
     end
   end
 
-  def self.game_root
+  def self.url_root
     '/games'
+  end
+
+  def self.file_root
+    File.join(Rails.root, 'public', 'games')
   end
 end
