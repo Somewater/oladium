@@ -83,6 +83,20 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def local_path
+    raise "Undefined local path" unless self.type == TYPE_SWF_FILE
+    File.join(Game.file_root, self.body)
+  end
+
+  def local_path=(path)
+    raise "Setter not implemented" unless self.type == TYPE_SWF_FILE
+    if path[0] == '/' ||  /\w\:\/.+/.match(path)
+      self.body = path[(Game.file_root.size + 1)..-1]
+    else
+      self.body = path
+    end
+  end
+
   def self.url_root
     '/games'
   end

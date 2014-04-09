@@ -8,9 +8,10 @@ class Developers::ProfilesController < ApplicationController
       game = current_developer.games.find(params['game_id'])
       uploaded_io = params['uploaded_game']
       new_filename = GameUtils.filepath_to_next_version_filename game.body
-      new_filepath = File.join(Game.file_root, File.dirname(game.body), new_filename)
+      new_filepath = File.join(File.dirname(game.local_path), new_filename)
       File.open(new_filepath, 'wb'){|f| f.write(uploaded_io.read)}
-      game.update_column :body, File.join(File.dirname(game.body), new_filename)
+      game.local_path = new_filepath
+      game.save
       flash.notice = "New version of your game '#{game.title}' uploaded!"
     end
   end

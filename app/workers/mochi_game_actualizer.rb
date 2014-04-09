@@ -13,7 +13,7 @@ class MochiGameActualizer
     swf_path = "#{base_path}/#{game.body}"
 
     if File.basename(game.body) == 'main.swf'
-      FileDiffDownloader.perform_async(data['swf_url'], swf_path, game_id)
+      GameDownloader.perform_async(data['swf_url'], swf_path, game_id)
     end
   end
 end
