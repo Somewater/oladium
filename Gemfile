@@ -35,3 +35,5 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil
 gem 'watir', :require => nil
 gem 'keepass-password-generator'
+gem 'tire', "~> 0.6.2"
+gem 'whenever', :require => false

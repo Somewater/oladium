@@ -1,6 +1,7 @@
 class Game < ActiveRecord::Base
 
   include GameUtils
+  include GameWithTire
 
   TYPE_EMBED = 'embed'
   TYPE_SWF_FILE = 'swf_file'
