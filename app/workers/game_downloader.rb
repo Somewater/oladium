@@ -8,6 +8,12 @@ class GameDownloader
   sidekiq_options :retry => 3
 
   def perform(url, game_id)
+    process(url, game_id)
+  rescue NotPerform => error
+    logger.error("Error #{error} on #{error.backtrace.join("\n")}")
+  end
+
+  def process(url, game_id)
     game = Game.find game_id
     local_path = game.local_path
     tmp_file_path = "#{File.dirname(local_path)}/diff_#{rand(1000000)}#{File.extname(local_path)}"
@@ -27,6 +33,28 @@ class GameDownloader
   end
 
   def process_zip(zip_filepath, extname)
+    files = get_zip_filenames(zip_filepath)
+    selected_file = files.select{|f| File.extname(f) == extname }
+    raise NotPerform, "File *#{extname} not found in archive, found: #{files.join(', ')}" if selected_file.empty?
+    raise NotPerform, "Double files in archive #{selected_file.join(', ')}" if selected_file.size > 1
+    `unzip "#{zip_filepath}"`
+    zip_root = File.dirname zip_filepath
+    (files - selected_file).each{|f| File.unlink(File.join(zip_root, f)) }
+    new_filepath = File.join(zip_root, File.filename(selected_file.first))
+    selected_file_dir = File.dirname selected_file.first
+    while !selected_file_dir.empty? && selected_file_dir != '.'
+      FileUtils.rmdir File.join(zip_root, selected_file_dir)
+      selected_file_dir = File.dirname selected_file_dir
+    end
+    FileUtils.mv File.join(zip_root, selected_file.first), new_filepath
+    new_filepath
+  end
 
+  def get_zip_filenames(zip_filepath)
+    res = `unzip -l "#{zip_filepath}"`
+    res.scan(/\d+\s+[\d\-]+\s+[\d\:]+\s+(?<file>.+)/).map{|a| a.first}
+  end
+
+  class NotPerform < RuntimeError
   end
 end
