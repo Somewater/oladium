@@ -17,7 +17,7 @@ class GameDownloader
     game = Game.find game_id
     local_path = game.local_path
     tmp_file_path = "#{File.dirname(local_path)}/diff_#{rand(1000000)}#{File.extname(local_path)}"
-    `wget -quiet "#{url}" -O "#{tmp_file_path}"`
+    `wget --quiet "#{url}" -O "#{tmp_file_path}"`
 
     tmp_file_path = process_zip(tmp_file_path, File.extname(local_path)) if File.extname(url).downcase == '.zip'
 
