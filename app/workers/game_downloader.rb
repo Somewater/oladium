@@ -37,16 +37,14 @@ class GameDownloader
     selected_file = files.select{|f| File.extname(f) == extname }
     raise NotPerform, "File *#{extname} not found in archive, found: #{files.join(', ')}" if selected_file.empty?
     raise NotPerform, "Double files in archive #{selected_file.join(', ')}" if selected_file.size > 1
-    `unzip "#{zip_filepath}"`
+
     zip_root = File.dirname zip_filepath
-    (files - selected_file).each{|f| File.unlink(File.join(zip_root, f)) }
+    extract_dir = "#{zip_root}/extract_#{rand(1000000)}"
+    `unzip "#{zip_filepath}" -d "#{extract_dir}"`
     new_filepath = File.join(zip_root, File.filename(selected_file.first))
-    selected_file_dir = File.dirname selected_file.first
-    while !selected_file_dir.empty? && selected_file_dir != '.'
-      FileUtils.rmdir File.join(zip_root, selected_file_dir)
-      selected_file_dir = File.dirname selected_file_dir
-    end
-    FileUtils.mv File.join(zip_root, selected_file.first), new_filepath
+    FileUtils.mv File.join(extract_dir, selected_file.first), new_filepath
+    File.unlink zip_filepath
+    FileUtils.rmtree(extract_dir, :force => true)
     new_filepath
   end
 
