@@ -44,7 +44,7 @@ class GameDownloader
     new_filepath = File.join(zip_root, File.basename(selected_file.first))
     FileUtils.mv File.join(extract_dir, selected_file.first), new_filepath
     File.unlink zip_filepath
-    FileUtils.rmtree(extract_dir, :force => true)
+    FileUtils.rmtree(extract_dir)
     new_filepath
   end
 
