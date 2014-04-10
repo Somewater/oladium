@@ -41,7 +41,7 @@ class GameDownloader
     zip_root = File.dirname zip_filepath
     extract_dir = "#{zip_root}/extract_#{rand(1000000)}"
     `unzip "#{zip_filepath}" -d "#{extract_dir}"`
-    new_filepath = File.join(zip_root, File.filename(selected_file.first))
+    new_filepath = File.join(zip_root, File.basename(selected_file.first))
     FileUtils.mv File.join(extract_dir, selected_file.first), new_filepath
     File.unlink zip_filepath
     FileUtils.rmtree(extract_dir, :force => true)
