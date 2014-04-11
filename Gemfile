@@ -37,3 +37,4 @@ gem 'watir', :require => nil
 gem 'keepass-password-generator'
 gem 'tire', "~> 0.6.2"
 gem 'whenever', :require => false
+gem 'exceptional'
