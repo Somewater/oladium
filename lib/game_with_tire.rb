@@ -19,6 +19,7 @@ module GameWithTire
       indexes :votings,       index: :not_analyzed, include_in_all: false, type: 'integer', include_in_all: false
       indexes :usage,         index: :not_analyzed, include_in_all: false, type: 'integer', include_in_all: false
       indexes :enabled,       index: :not_analyzed, include_in_all: false, type: 'boolean', include_in_all: false
+      indexes :category_id,   analyzer: 'keyword',  include_in_all: false, type: 'integer'
     end
   end
 
@@ -33,7 +34,8 @@ module GameWithTire
       votes: votes,
       votings: votings,
       usage: usage,
-      enabled: enabled
+      enabled: enabled,
+      category_id: category_id
     }
   end
 
