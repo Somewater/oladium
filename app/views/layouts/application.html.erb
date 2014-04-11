@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta http-equiv="Content-Language" content="<%= request.host[(request.host.rindex('.') + 1)..-1] == 'ru' ? 'ru' : 'en' %>" /> 
+    <meta http-equiv="Content-Language" content="<%= request.host[(request.host.rindex('.').to_i + 1)..-1] == 'ru' ? 'ru' : 'en' %>" />
     <% if defined? @game %>
         <title>Oladium. <%= @game.title %></title>
         <meta name="description" content="<%= @game.description %>" />
