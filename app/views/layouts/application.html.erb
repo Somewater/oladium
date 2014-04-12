@@ -31,11 +31,7 @@
     <%= render :partial => 'layouts/mainmenu' %>
 </header>
 <div class="container">
-    <div style="margin-bottom: 20px;">
-        <div style="width: 728px; margin: 0 auto; text-align: center;">
-            <script async src="//ads.people-group.net/169191/1/1/1/" onload="InitAipg_16919100010001(this)"></script>
-        </div>
-    </div>
+    <%= render 'shared/cpmoz_banner'  %>
     <% unless notice.blank? && alert.blank? %>
         <div class="row" style="margin-left: 0px;">
             <% unless notice.blank? %>
