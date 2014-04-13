@@ -26,7 +26,7 @@ namespace :pgdump do
   task :sync do
     require 'fileutils'
     FileUtils.mkdir_p tmp_folder
-    cmd "scp -r pav@atlantor.ru:oladium/tmp/pgdump tmp/pgdump"
+    cmd "rsync -a --ignore-existing pav@atlantor.ru:oladium/tmp/pgdump/*.sql tmp/pgdump"
   end
 
   def tmp_folder

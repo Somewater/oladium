@@ -37,7 +37,9 @@ class GamesController < ApplicationController
       return
     end
 
-    @game.usage += 1
-    @game.save unless @game.new_record?
+    unless current_user || current_developer
+      @game.usage += 1
+      @game.save unless @game.new_record?
+    end
   end
 end
