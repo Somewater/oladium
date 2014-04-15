@@ -4,6 +4,7 @@ class CategoryController < ApplicationController
   end
 
   def show
+    assign_page()
     begin
       @category = Category.find_by_id(params[:id]) || Category.find_by_name(params[:id])
       raise ActiveRecord::RecordNotFound unless @category
@@ -13,19 +14,22 @@ class CategoryController < ApplicationController
       return
     end
 
-    @games = Game.where(["category_id = ? AND enabled = TRUE", @category.id]).order('priority DESC', 'created_at DESC')
+    assign_page()
+    scope = Game.where(["category_id = ? AND enabled = TRUE", @category.id]).order('priority DESC', 'created_at DESC')
+    @games = GameCache.fetch(scope, 'games:category:' + @category.name, @page)
     show_games_index()
   end
 
   def tags
+    assign_page()
     @tag_word = params[:tag].to_s.gsub(/\+([^\+]+)/,' \1').gsub('++', '+')
-    @games = Game.where(["CONCAT(COALESCE(tags,'')) ILIKE (?)", '%' + @tag_word.to_s + '%']).order('priority DESC', 'created_at DESC')
+    scope = Game.where(["CONCAT(COALESCE(tags,'')) ILIKE (?)", '%' + @tag_word.to_s + '%']).order('priority DESC', 'created_at DESC')
+    @games = GameCache.fetch(scope, 'games:tag:' + @tag_word.to_s, @page)
     show_games_index()
   end
 
   def show_games_index
-    assign_page();
-    flash.now.notice = I18n.t('games.empty_set') if @games.size == 0
+    flash.now.notice = I18n.t('games.empty_set') if @games.count == 0
 
     render :template => 'games/index'
   end

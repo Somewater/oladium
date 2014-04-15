@@ -5,14 +5,13 @@ class GamesController < ApplicationController
 
   def index
     assign_page()
-    @games = Game.order('usage DESC', 
-                        '(CASE WHEN (votings = 0) THEN 0 ELSE votes / votings END) DESC', 'priority DESC', 'created_at DESC')
-    if(@games.size > 15)
+    @games = GameCache.fetch(scope, 'games', @page)
+    if(@games.count > 15)
       primary_quantity = 3
-      primary_quantity = 6 if @games.size > 30
-      primary_quantity = 9 if @games.size > 50
-      primary_quantity = 12 if @games.size > 100
-      @primary_games = @games.slice!(0, primary_quantity)
+      primary_quantity = 6 if @games.count > 30
+      primary_quantity = 9 if @games.count > 50
+      primary_quantity = 12 if @games.count > 100
+      @primary_games = GameCache.fetch(scope, 'games', 0, primary_quantity)
     end
     render :template => 'games/index'
   end
@@ -41,5 +40,10 @@ class GamesController < ApplicationController
       @game.usage += 1
       @game.save unless @game.new_record?
     end
+  end
+
+  private
+  def scope
+    Game.order('priority DESC','(CASE WHEN (votings = 0) THEN 0 ELSE votes / votings END) DESC', 'usage DESC', 'created_at DESC')
   end
 end

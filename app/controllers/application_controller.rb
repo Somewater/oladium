@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def assign_page()
-    @page = [params[:page].to_i - 1, 0].max if params[:page]
+    @page = [params[:page].to_i - 1, 0].max
     @page
   end
 end

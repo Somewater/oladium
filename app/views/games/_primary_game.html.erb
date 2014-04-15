@@ -14,7 +14,7 @@
     <div style="background-color: #ffffee; width: 100%; bottom: 0px; left: 0px; right: 0px; position: absolute; max-height: 65px; overflow: hidden;">
         <div style="padding: 4px; text-align: center;">
             <% game.each_tag(10) do |tag, html_name| %>
-                <a href="javascript:void"><span class="label label-info"><%= truncate(tag, :length => 15) %></span></a>
+                <a href="<%= tags_path(html_name) %>"><span class="label label-info"><%= truncate(tag, :length => 15) %></span></a>
             <% end %>
         </div>
     </div>

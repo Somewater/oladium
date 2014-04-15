@@ -1,14 +1,7 @@
 <%= render :partial => 'games/paginator' %>
 
 <ul class="thumbnails">
-    <%
-       # select page
-       games_page = @games
-       if(@page && @pages && @pages.size > 1)
-        games_page = @games[@page * GamesController::GAMES_PER_PAGE, GamesController::GAMES_PER_PAGE]
-       end
-    %>
-    <% games_page.each do |game| %>
+    <% @games.each do |game| %>
         <%= render :partial => 'games/game', :locals => {:game => game} %>
     <% end %>
 </ul>

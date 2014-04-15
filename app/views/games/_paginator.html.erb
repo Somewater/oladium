@@ -1,8 +1,8 @@
-<% if @games.size > GamesController::GAMES_PER_PAGE
+<% if @games.count > GamesController::GAMES_PER_PAGE
 
   @page = 0 unless @page
    unless @pages && @pages.to_i > 0
-     @pages = (@games.size / GamesController::GAMES_PER_PAGE.to_f).ceil
+     @pages = (@games.count / GamesController::GAMES_PER_PAGE.to_f).ceil
    end
 %>
     <% if @pages > 1 %>
