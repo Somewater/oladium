@@ -1,4 +1,7 @@
 User-agent: *
 Disallow: /tags
 Disallow: /search
+Disallow: /developers
+Disallow: /users
+Disallow: /advertisers
 Sitemap: http://oladium.com/sitemaps/sitemap.xml
