@@ -1,5 +1,5 @@
 <% if @primary_games && @primary_games.size > 0 && @page.to_i == 0 %>
-    <div class="slider2">
+    <div class="primarySlider">
             <% @primary_games.each do |game| %>
                     <%= render :partial => 'games/primary_game', :locals => {:game => game}  %>
             <% end %>
@@ -7,21 +7,14 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('.bxslider').bxSlider({
+            $('.primarySlider').bxSlider({
+                preloadImages: 'none',
                 pager: false,
                 minSlides: 3,
                 maxSlides: 3,
                 slideWidth: 360,
                 slideHeight: 200,
-                slideMargin: 10
-            });
-            $('.slider2').bxSlider({
-                pager: false,
-                minSlides: 3,
-                maxSlides: 3,
-                slideWidth: 360,
-                slideHeight: 200,
-                slideMargin: 10
+                slideMargin: 0
             });
         });
     </script>

@@ -11,5 +11,7 @@
  *= require ./bootstrap/bootstrap
  *= require ./bootstrap/bootstrap-responsive
  *= require jquery.bxslider
- *= require style
 */
+.stars img{
+    display: inline !important;
+}
