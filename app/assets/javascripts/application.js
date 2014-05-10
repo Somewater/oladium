@@ -14,7 +14,8 @@
 //= require jquery_ujs
 //= require ./bootstrap/bootstrap
 //= require ./raty
-//= require ./bxslider
+//= require ./jquery.bxslider
+//= require ./jquery.glide
 
 
 $(function(){

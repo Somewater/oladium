@@ -11,7 +11,7 @@ module GameCache
     count = ids_all.size
     ids = ids_all[(page * per_page)...((page + 1) * per_page)]
 
-    collection = GamesCollection.new(Game.find(ids))
+    collection = GamesCollection.new(Game.find(ids).sort_by{|g| ids.index g.id })
     collection.count = count
     collection
   end

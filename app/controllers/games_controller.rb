@@ -2,6 +2,7 @@ class GamesController < ApplicationController
 
   GAMES_PER_PAGE = 12
   GET_PATTERN = /net-(?<net>.+)-id-(?<id>.+)\?q=(?<query>.+)/
+  GAMES_ORDER = ['priority DESC','(CASE WHEN (votings = 0) THEN 0 ELSE votes / votings END) DESC', 'usage DESC', 'created_at DESC']
 
   def index
     assign_page()
@@ -11,7 +12,7 @@ class GamesController < ApplicationController
       primary_quantity = 6 if @games.count > 30
       primary_quantity = 9 if @games.count > 50
       primary_quantity = 12 if @games.count > 100
-      @primary_games = GameCache.fetch(scope, 'games', 0, primary_quantity)
+      @primary_games = GameCache.fetch(primary_scope, 'primary_games', 0, primary_quantity)
     end
     render :template => 'games/index'
   end
@@ -44,6 +45,10 @@ class GamesController < ApplicationController
 
   private
   def scope
-    Game.order('priority DESC','(CASE WHEN (votings = 0) THEN 0 ELSE votes / votings END) DESC', 'usage DESC', 'created_at DESC')
+    Game.order(*GAMES_ORDER)
+  end
+
+  def primary_scope
+    Game.order(*(['"primary" DESC'].append GAMES_ORDER))
   end
 end
