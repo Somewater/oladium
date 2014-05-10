@@ -197,13 +197,17 @@ RailsAdmin.config do |config|
   # end
   
     RailsAdmin.config do |config|
-		config.models do
-		  edit do
-			fields_of_type :text do
-			  ckeditor true
-			end
-		  end
-		end
+      config.models do
+        edit do
+        fields_of_type :text do
+          ckeditor true
+        end
+        end
+      end
+      config.authenticate_with do
+        warden.authenticate! scope: :user
+      end
+      config.current_user_method &:current_user
 	  end
 
 end
