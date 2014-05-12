@@ -9,7 +9,7 @@ class Game < ActiveRecord::Base
   self.inheritance_column = :nothing
 
   attr_accessible :net, :body, :description, :driving, :height, :slug, :net_id, :priority, :title,
-                  :type, :width, :image, :tags, :votes, :votings
+                  :type, :width, :image, :tags, :votes, :votings, :usage, :primary
   attr_accessor   :game_model # для ссыдки на связанную Aggregator::Game
 
   belongs_to :category
@@ -104,5 +104,9 @@ class Game < ActiveRecord::Base
 
   def self.file_root
     File.join(Rails.root, 'public', 'games')
+  end
+
+  def self.find_by_slug_or_id(id)
+    Game.find_by_slug(id) || Game.find_by_id(id) || (raise ActiveRecord::RecordNotFound)
   end
 end

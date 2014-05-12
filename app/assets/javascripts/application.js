@@ -16,6 +16,7 @@
 //= require ./raty
 //= require ./jquery.bxslider
 //= require ./jquery.glide
+//= require best_in_place
 
 
 $(function(){
@@ -23,9 +24,6 @@ $(function(){
 //= require ./google_analytics
 //= require ./yandex_metrika
     }
-})
-
-$(function(){
     $('.stars').raty({
         score: function() {
             return $(this).attr('score');
@@ -42,4 +40,5 @@ $(function(){
             }
         }
     });
+    jQuery(".best_in_place").best_in_place();
 })

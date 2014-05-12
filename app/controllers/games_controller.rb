@@ -5,6 +5,8 @@ class GamesController < ApplicationController
   GAMES_ORDER = ['priority DESC','(CASE WHEN (votings = 0) THEN 0 ELSE votes / votings END) DESC', 'usage DESC', 'created_at DESC']
   PRIMARY_GAMES_COUNT = 12
 
+  before_filter :authenticate_user!, :only => ['update']
+
   def index
     assign_page()
     @games = GameCache.fetch(scope, 'games', @page)
@@ -16,7 +18,7 @@ class GamesController < ApplicationController
 
   def show
     begin
-      @game = Game.find_by_slug(params[:id]) || Game.find_by_id(params[:id]) || (raise ActiveRecord::RecordNotFound)
+      @game = Game.find_by_slug_or_id(params[:id])
     rescue ActiveRecord::RecordNotFound
       match = params[:id] ? params[:id].to_s.match(GET_PATTERN) : nil
       if !@game && match
@@ -37,6 +39,12 @@ class GamesController < ApplicationController
     unless current_user || current_developer
       @game.usage += 1
       @game.save unless @game.new_record?
+    end
+  end
+
+  def update
+    update_with_bip(params[:game]) do |id|
+      Game.find_by_slug_or_id(id)
     end
   end
 

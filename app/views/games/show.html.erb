@@ -49,4 +49,7 @@
             </div>
         </div>
     </div>
+    <% if current_user %>
+        <%= render 'edit_form', game: @game %>
+    <% end %>
 </div>
