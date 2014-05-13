@@ -264,6 +264,8 @@
             if(slider.settings.preloadImages == "none"){
                 start();
                 setTimeout(setSlidePosition, 1)
+                setTimeout(setSlidePosition, 200)
+                setTimeout(setSlidePosition, 1000)
             }else
 			    loadElements(preloadSelector, start);
 		}
@@ -298,7 +300,7 @@
 			// remove the loading DOM element
 			slider.loader.remove();
 			// set the left / top position of "el"
-			setSlidePosition();
+			//setSlidePosition();
 			// if "vertical" mode, always use adaptiveHeight to prevent odd behavior
 			if (slider.settings.mode == 'vertical') slider.settings.adaptiveHeight = true;
 			// set the viewport height
