@@ -27,7 +27,7 @@ gem 'rails_admin', "0.4.9"
 gem "ckeditor"
 gem "paperclip"
 gem 'dynamic_sitemaps', "~> 2.0"
-gem 'httparty', '0.8.1'
+gem 'httparty', '0.11'
 gem "devise", "2.1"
 gem 'thin', '1.5.0', :platform => :ruby
 gem 'traco', '1.1.0'
@@ -40,3 +40,4 @@ gem 'tire', "~> 0.6.2"
 gem 'whenever', :require => false
 gem 'exceptional'
 gem 'best_in_place'
+gem 'raygun4ruby'
