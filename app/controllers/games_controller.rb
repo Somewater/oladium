@@ -50,11 +50,11 @@ class GamesController < ApplicationController
 
   private
   def scope
-    Game.where("id NOT IN (?)", primary_scope.limit(PRIMARY_GAMES_COUNT)).order(*GAMES_ORDER)
+    Game.enabled.where("id NOT IN (?)", primary_scope(Game).limit(PRIMARY_GAMES_COUNT)).order(*GAMES_ORDER)
   end
 
-  def primary_scope
-    Game.order(*(['"primary" DESC'].append GAMES_ORDER))
+  def primary_scope(scope = nil)
+    (scope || Game.enabled).order(*(['"primary" DESC'].append GAMES_ORDER))
   end
 
   def games_count

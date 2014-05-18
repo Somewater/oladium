@@ -1,5 +1,6 @@
 module ApplicationHelper
-  def game_path(game)
+  def game_path(*args)
+    game = args.first
     super(game.respond_to?(:to_param) ? game.to_param : "net-#{game.net}-id-#{game.net_id}?q=" + (game.game_model ? game.game_model.query : ''))
   end
 

@@ -16,6 +16,7 @@ Oladium::Application.routes.draw do
     mount Ckeditor::Engine => '/ckeditor'
     mount RailsAdmin::Engine => '/rails_admin', :as => 'rails_admin'
     namespace 'admin' do
+      resources :games, :as => 'admin_game'
       match '(:action(/:task))' => 'admin', :defaults => {:action => 'index'}
     end
   end

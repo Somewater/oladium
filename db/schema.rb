@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140510152816) do
+ActiveRecord::Schema.define(:version => 20140518180137) do
 
   create_table "categories", :force => true do |t|
     t.string "name",     :null => false
@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(:version => 20140510152816) do
   add_index "developers", ["reset_password_token"], :name => "index_developers_on_reset_password_token", :unique => true
 
   create_table "games", :force => true do |t|
-    t.string   "net",                            :null => false
-    t.string   "net_id",                         :null => false
-    t.string   "type"
+    t.string   "net"
+    t.string   "net_id"
+    t.string   "type",                           :null => false
     t.string   "slug"
     t.string   "title"
     t.text     "description"

@@ -1,0 +1,46 @@
+<div class="well">
+    <div>
+        <a data-toggle="collapse" data-parent="#accordion" href="#game-data"><%= @game.title.presence || "Game ##{@game.id}" %></a>
+        &nbsp;<a href="<%= game_path @game %>"><i class="icon-picture"></i>on site</a>
+        <a href="<%= rails_admin.edit_path(model_name: 'game', id: @game.id) %>"><i class="icon-edit"></i>on rails_admin</a>
+    </div>
+    <div id="game-data" class="collapse">
+        <% @game.attributes.each do |attr, val| %>
+            <p><b><%= attr %>: </b><%= val %></p>
+        <% end %>
+    </div>
+    <%= form_for @game do |form| %>
+        <img src="<%= Game.url_root + "/" + @game.image.to_s %>" alt="<%= @game.title %>"><br>
+        <%= form.file_field :image %>
+
+        <table class="table table-striped">
+            <% Dir.foreach(@game.local_directory) do |file| next if file == '.' or file == '..' %>
+                <tr>
+                    <td>
+                        <a href="<%= @game.url_directory + '/' + file %>"><%= file %></a>
+                    </td>
+                    <td>
+                        <% if File.extname(file).downcase == '.swf' %>
+                            <% if @game.local_path == File.join(@game.local_directory, file) %>
+                                <button class="btn-success"><i class="icon-check"></i></button>
+                            <% else %>
+                                <button class="btn-mini"><i class="icon-check"></i></button>
+                            <% end %>
+                        <% end %>
+                        <button class="btn-warning"><i class="icon-upload"></i></button>
+                        <button class="btn-danger"><i class="icon-remove"></i></button>
+                    </td>
+                </tr>
+            <% end %>
+            <tr>
+                <td>
+                    <%= form_tag do %>
+                        <%= file_field_tag :new_file %>
+                        <%= check_box_tag :new_version, '1', true %>Replace curent version
+                        <button type="submit" class="btn-warning"><i class="icon-upload"></i></button>
+                    <% end %>
+                </td>
+            </tr>
+        </table>
+    <% end %>
+</div>

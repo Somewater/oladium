@@ -5,15 +5,21 @@ class Game < ActiveRecord::Base
 
   TYPE_EMBED = 'embed'
   TYPE_SWF_FILE = 'swf_file'
+  TYPE_UNITY = 'unity'
 
   self.inheritance_column = :nothing
 
+  has_attached_file :asset
+
   attr_accessible :net, :body, :description, :driving, :height, :slug, :net_id, :priority, :title,
-                  :type, :width, :image, :tags, :votes, :votings, :usage, :primary
+                  :type, :width, :image, :tags, :votes, :votings, :usage, :primary,
+                  :developer_id, :category_id, :enabled
   attr_accessor   :game_model # для ссыдки на связанную Aggregator::Game
 
   belongs_to :category
   belongs_to :developer
+
+  scope :enabled, where(:enabled => true)
 
   def category
     super || Category.default
@@ -84,6 +90,14 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def url_directory
+    Game.url_root + "/" + "#{(id / 1000) * 1000}/#{slug}"
+  end
+
+  def local_directory
+    File.join(Game.file_root, "#{(id / 1000) * 1000}/#{slug}")
+  end
+
   def local_path
     raise "Undefined local path" unless self.type == TYPE_SWF_FILE
     File.join(Game.file_root, self.body)
@@ -108,5 +122,17 @@ class Game < ActiveRecord::Base
 
   def self.find_by_slug_or_id(id)
     Game.find_by_slug(id) || Game.find_by_id(id) || (raise ActiveRecord::RecordNotFound)
+  end
+
+  rails_admin do
+    fields do
+      order
+    end
+    field :type, :enum do
+      enum do
+        [TYPE_EMBED, TYPE_SWF_FILE]
+      end
+      order
+    end
   end
 end
