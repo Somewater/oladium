@@ -112,6 +112,14 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def local_image_path=(path)
+    if path[0] == '/' ||  /\w\:\/.+/.match(path)
+      self.image = path[(Game.file_root.size + 1)..-1]
+    else
+      self.image = path
+    end
+  end
+
   def self.url_root
     '/games'
   end

@@ -19,13 +19,13 @@ module GameUtils
     version
   end
 
-  def self.filepath_to_next_version_filename(filepath)
+  def self.filepath_to_next_version_filename(filepath, custom_ext = nil)
     filename = File.basename(filepath)
     ext = File.extname(filename)
     filename_without_ext = filename[0...-(ext.size)]
     m = /^(?<name>.*[^\d]+)(?<version>\d+)?$/.match(filename_without_ext)
     version = m[:version] ? m[:version].to_i : 1
     version += 1
-    "#{m[:name]}#{version}#{ext}"
+    "#{m[:name]}#{version}#{custom_ext || ext}"
   end
 end
