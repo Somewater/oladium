@@ -13,6 +13,7 @@ class  Admin::GamesController <  Admin::AdminBaseController
 
   def edit
     @game = Game.find_by_slug_or_id(params[:id])
+    FileUtils.mkdir(@game.local_directory) unless File.exist?(@game.local_directory)
   end
 
   def update
