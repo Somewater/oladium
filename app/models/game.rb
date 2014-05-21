@@ -21,6 +21,8 @@ class Game < ActiveRecord::Base
 
   scope :enabled, where(:enabled => true)
 
+  before_save :assign_null_if_empty
+
   def category
     super || Category.default
   end
@@ -142,5 +144,10 @@ class Game < ActiveRecord::Base
       end
       order
     end
+  end
+
+  def assign_null_if_empty
+    self.net = nil unless net.present?
+    self.net_id = nil unless net_id.present?
   end
 end
