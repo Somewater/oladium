@@ -29,7 +29,8 @@ gem "paperclip"
 gem 'dynamic_sitemaps', "~> 2.0"
 gem 'httparty', '0.11'
 gem "devise", "2.1"
-gem 'thin', '1.5.0', :platform => :ruby
+#gem 'thin', '1.5.0', :platform => :ruby
+gem 'unicorn'
 gem 'traco', '1.1.0'
 gem 'nokogiri'
 gem 'sidekiq'
